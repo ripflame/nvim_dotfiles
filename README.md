@@ -1,7 +1,6 @@
 # Neovim Setup
 
-This repository contains my Neovim configuration, along with an automated install script for both macOS and Windows. The setup includes essential plugins and tools to enhance development productivity.
-
+This repository contains my Neovim configuration, along with an automated install script for both macOS and Windows.
 ## Features
 - **Fully Automated Installation**: Run a single script to set up Neovim with all dependencies.
 - **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) to manage plugins efficiently.
@@ -13,7 +12,7 @@ This repository contains my Neovim configuration, along with an automated instal
 
 ## Installation Instructions
 
-### **1?? Clone the Repository**
+### **1 Clone the Repository**
 ```sh
 # macOS
 git clone https://github.com/yourusername/nvim-setup.git ~/.nvim-setup
@@ -24,7 +23,7 @@ git clone https://github.com/yourusername/nvim-setup.git "$env:USERPROFILE\nvim-
 cd "$env:USERPROFILE\nvim-setup"
 ```
 
-### **2?? Run the Install Script**
+### **2 Run the Install Script**
 #### **For macOS**
 ```sh
 ./install_mac.sh
@@ -34,7 +33,7 @@ cd "$env:USERPROFILE\nvim-setup"
 ./install_windows.ps1
 ```
 
-### **3?? Start Neovim**
+### **3 Start Neovim**
 ```sh
 nvim
 ```
@@ -44,30 +43,30 @@ nvim
 ## Plugin List & Features
 
 ### **Core Plugins**
-- **lazy.nvim** Ð Plugin manager
-- **nvim-treesitter** Ð Better syntax highlighting
-- **nvim-lspconfig** Ð Language Server Protocol (LSP) support
-- **cmp-nvim** Ð Autocompletion engine
-- **telescope.nvim** Ð Fuzzy finder and file searching
-- **lualine.nvim** Ð A modern statusline
-- **gitsigns.nvim** Ð Git integration inside Neovim
+- **lazy.nvim** => Plugin manager
+- **nvim-treesitter** => Better syntax highlighting
+- **nvim-lspconfig** => Language Server Protocol (LSP) support
+- **cmp-nvim** => Autocompletion engine
+- **telescope.nvim** => Fuzzy finder and file searching
+- **lualine.nvim** => A modern statusline
+- **gitsigns.nvim** => Git integration inside Neovim
 
 ### **Development Tools**
-- **nvim-lspconfig** Ð Pre-configured LSP for various languages
-- **null-ls.nvim** Ð Formatter and linter integration
-- **mason.nvim** Ð Easy LSP, DAP, and formatter installation
-- **nvim-dap** Ð Debugging support
+- **nvim-lspconfig** => Pre-configured LSP for various languages
+- **null-ls.nvim** => Formatter and linter integration
+- **mason.nvim** => Easy LSP, DAP, and formatter installation
+- **nvim-dap** => Debugging support
 
 ### **UI Enhancements**
-- **catppuccin.nvim** Ð Custom color theme
-- **bufferline.nvim** Ð Enhanced tab management
-- **which-key.nvim** Ð Keybinding suggestions
+- **catppuccin.nvim** => Custom color theme
+- **bufferline.nvim** => Enhanced tab management
+- **which-key.nvim** => Keybinding suggestions
 
 ### **File Navigation & Utilities**
-- **telescope.nvim** Ð Fuzzy finder
-- **nvim-tree.lua** Ð File explorer
-- **nvim-autopairs** Ð Auto-close brackets and quotes
-- **comment.nvim** Ð Quick commenting
+- **telescope.nvim** => Fuzzy finder
+- **nvim-tree.lua** => File explorer
+- **nvim-autopairs** => Auto-close brackets and quotes
+- **comment.nvim** => Quick commenting
 
 ---
 
@@ -84,5 +83,5 @@ cd "$env:USERPROFILE\nvim-setup" && git pull && ./install_windows.ps1  # Windows
 - If you encounter issues, make sure you have Git, Neovim, and other dependencies installed.
 - Windows users should ensure they run PowerShell as Administrator when executing the script.
 
-Enjoy your new Neovim setup! ??
+Enjoy your new Neovim setup!
 
