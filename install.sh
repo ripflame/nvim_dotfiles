@@ -1,37 +1,42 @@
 #!/bin/bash
 
-set -e  # Exit immediately if a command fails
+set -e  # Exit if any command fails
 
 echo "Starting Neovim setup for macOS..."
 
-# Install Homebrew if not installed
+# Get the script's directory (assuming it's inside the repo)
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NVIM_CONFIG="$HOME/.config/nvim"
+LAZY_PATH="$HOME/.local/share/nvim/lazy/lazy.nvim"
+
+# Install Homebrew if missing
 if ! command -v brew &>/dev/null; then
     echo "Homebrew not found. Installing..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    echo "Homebrew is already installed."
 fi
 
-# Install dependencies
-echo "Installing dependencies..."
-brew install neovim git ripgrep fd lua
+# Install required packages if missing
+echo "Checking dependencies..."
+brew list neovim &>/dev/null || brew install neovim
+brew list git &>/dev/null || brew install git
+brew list ripgrep &>/dev/null || brew install ripgrep
+brew list fd &>/dev/null || brew install fd
+brew list lua &>/dev/null || brew install lua
 
-# Set up Neovim config
-echo "Setting up Neovim configuration..."
-if [[ -d "$HOME/.config/nvim" ]]; then
+# Backup existing Neovim config if it exists
+if [[ -d "$NVIM_CONFIG" || -L "$NVIM_CONFIG" ]]; then
     echo "Existing Neovim config found. Backing up..."
-    mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
+    mv "$NVIM_CONFIG" "$NVIM_CONFIG.bak"
 fi
 
-# Clone config and create symlink
-git clone https://github.com/ripflame/nvim_dotfiles.git "$HOME/.nvim-setup"
-ln -s "$HOME/.nvim-setup/nvim" "$HOME/.config/nvim"
+# Create symlink to the repo's nvim config
+echo "Linking Neovim config..."
+ln -s "$REPO_DIR/nvim" "$NVIM_CONFIG"
 
-# Ensure lazy.nvim is installed
-echo "Installing lazy.nvim..."
-LZ_PATH="$HOME/.local/share/nvim/lazy/lazy.nvim"
-if [[ ! -d "$LZ_PATH" ]]; then
-    git clone --depth 1 https://github.com/folke/lazy.nvim.git "$LZ_PATH"
+# Install lazy.nvim if not already installed
+if [[ ! -d "$LAZY_PATH" ]]; then
+    echo "Installing lazy.nvim..."
+    git clone --depth 1 https://github.com/folke/lazy.nvim.git "$LAZY_PATH"
 fi
 
 echo "Neovim setup complete!"
