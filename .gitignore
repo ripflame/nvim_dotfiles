@@ -2,3 +2,4 @@ nvim/lazy
 nvim/plugin
 nvim/pack
 nvim/site
+nvim/lazy-lock.json
