@@ -1,1 +1,4 @@
 nvim/lazy
+nvim/plugin
+nvim/pack
+nvim/site
