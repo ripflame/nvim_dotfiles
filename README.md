@@ -15,11 +15,11 @@ This repository contains my Neovim configuration, along with an automated instal
 ### **1 Clone the Repository**
 ```sh
 # macOS
-git clone https://github.com/yourusername/nvim-setup.git ~/.nvim-setup
+git clone https://github.com/ripflame/nvim_dotfiles.git ~/.nvim-setup
 cd ~/.nvim-setup
 
 # Windows (PowerShell)
-git clone https://github.com/yourusername/nvim-setup.git "$env:USERPROFILE\nvim-setup"
+git clone https://github.com/ripflame/nvim_dotfiles.git "$env:USERPROFILE\nvim-setup"
 cd "$env:USERPROFILE\nvim-setup"
 ```
 
