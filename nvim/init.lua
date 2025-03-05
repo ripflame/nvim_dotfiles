@@ -21,7 +21,14 @@ vim.opt.rtp:prepend(lazypath)
 -- Neovide settings only
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
-  vim.o.guifont = "Source Code Pro for Powerline:h14" -- text below applies for VimScript
+  local fonts = {
+    "Source Code Pro for Powerline",
+    "FiraCode Nerd Font",
+    "JetBrainsMono Nerd Font",
+    "Consolas",
+    "COurier New"
+  }
+  vim.o.guifont = table.concat(fonts, ",") .. ":h14" -- text below applies for VimScript
   vim.g.neovide_scale_factor = .90
 end
 
