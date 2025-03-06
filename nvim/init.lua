@@ -235,6 +235,9 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 vim.cmd([[
   command! OpenTerminal split | terminal
 ]])
+vim.keymap.set("n", "<leader>ev", function()
+  vim.cmd("e " .. vim.fn.stdpath("config") .. "/init.lua")
+end, { silent = true })
 
 --------------------------------------------------------------------------------
 -- END OF CONFIGURATION
