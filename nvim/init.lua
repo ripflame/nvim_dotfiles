@@ -27,7 +27,7 @@ if vim.g.neovide then
   -- Set font list based on OS
   local font = "SauceCodePro Nerd Font:h16" -- Default font
   if is_windows then
-    font = "Consolas:h16"                          -- Consolas is default on Windows
+    font = "SauceCodePro Nerd Font:h14"                          -- Consolas is default on Windows
   elseif is_mac then
     font = "SauceCodePro Nerd Font:h16"                             -- Menlo is default on macOS
   else
