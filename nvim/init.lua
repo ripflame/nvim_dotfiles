@@ -16,6 +16,16 @@ vim.opt.rtp:prepend(lazypath)
 --------------------------------------------------------------------------------
 -- GENERAL SETTINGS
 --------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    -- Start LSP automatically
+    vim.cmd("LspStart")
+  end,
+})
+vim.defer_fn(function()
+  vim.cmd("LspStart")
+end, 100)
 
 
 -- Neovide settings only
