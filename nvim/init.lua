@@ -19,14 +19,27 @@ vim.opt.rtp:prepend(lazypath)
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
   callback = function()
- if vim.fn.exists(":LspStart") == 2 then
+    if vim.fn.exists(":LspStart") == 2 then
       vim.cmd("LspStart")
-    end   -- Start LSP automatically
+    end -- Start LSP automatically
   end,
 })
 vim.defer_fn(function()
   vim.cmd("LspStart")
 end, 100)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "html",
+  callback = function()
+    vim.bo.syntax = "javascript"
+  end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*.html",
+  callback = function()
+    vim.cmd("syntax sync fromstart")
+    vim.cmd("set filetype=html.javascript")
+  end,
+})
 
 
 -- Neovide settings only
@@ -38,11 +51,11 @@ if vim.g.neovide then
   -- Set font list based on OS
   local font = "SauceCodePro Nerd Font:h16" -- Default font
   if is_windows then
-    font = "SauceCodePro Nerd Font:h14"                          -- Consolas is default on Windows
+    font = "SauceCodePro Nerd Font:h14"     -- Consolas is default on Windows
   elseif is_mac then
-    font = "SauceCodePro Nerd Font:h16"                             -- Menlo is default on macOS
+    font = "SauceCodePro Nerd Font:h16"     -- Menlo is default on macOS
   else
-    font = "Monospace:h14"                         -- Generic fallback for Linux
+    font = "Monospace:h14"                  -- Generic fallback for Linux
   end
 
   vim.o.guifont = font -- Put anything you want to happen only in Neovide here

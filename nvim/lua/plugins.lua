@@ -92,6 +92,7 @@ return {
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
+        matchup = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -113,5 +114,20 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "nvimtools/none-ls.nvim", -- formerly known as null-ls
+    dependencies = { "nvim-lua/plenary.nvim" }, -- Required dependency
+    config = function()
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.prettier.with({
+            filetypes = { "javascript", "typescript", "html", "css", "json" }
+          }),
+        },
+      })
+    end,
   },
 }

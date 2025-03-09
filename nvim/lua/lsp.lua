@@ -1,6 +1,5 @@
 local lspconfig = require("lspconfig")
 local cmp_lsp = require("cmp_nvim_lsp")
-
 local capabilities = cmp_lsp.default_capabilities()
 
 lspconfig.ts_ls.setup({
@@ -10,6 +9,7 @@ lspconfig.ts_ls.setup({
   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
   on_attach = function(client, bufnr)
     print("LSP ts_ls attached to buffer " .. bufnr)
+    client.server_capabilities.documentFormattingProvider = false
   end,
 })
 
@@ -19,9 +19,6 @@ lspconfig.cssls.setup({ capabilities = capabilities })
 lspconfig.jsonls.setup({ capabilities = capabilities })
 lspconfig.pyright.setup({ capabilities = capabilities })
 lspconfig.lua_ls.setup({ capabilities = capabilities })
-
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.lua_ls.setup({
   capabilities = capabilities,
@@ -40,12 +37,12 @@ lspconfig.lua_ls.setup({
   },
 })
 
-require'lspconfig'.emmet_ls.setup{
-    filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
-    init_options = {
-        showExpandedAbbreviation = "always",
-        showAbbreviationSuggestions = true,
-        syntaxProfiles = {},
-        variables = {},
-    }
+require 'lspconfig'.emmet_ls.setup {
+  filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
+  init_options = {
+    showExpandedAbbreviation = "always",
+    showAbbreviationSuggestions = true,
+    syntaxProfiles = {},
+    variables = {},
+  }
 }
