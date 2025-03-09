@@ -7,7 +7,7 @@ lspconfig.ts_ls.setup({
   capabilities = capabilities,
   -- This is the official name in nvim-lspconfig for TypeScript
   cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
   on_attach = function(client, bufnr)
     print("LSP ts_ls attached to buffer " .. bufnr)
   end,
@@ -39,3 +39,13 @@ lspconfig.lua_ls.setup({
     },
   },
 })
+
+require'lspconfig'.emmet_ls.setup{
+    filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
+    init_options = {
+        showExpandedAbbreviation = "always",
+        showAbbreviationSuggestions = true,
+        syntaxProfiles = {},
+        variables = {},
+    }
+}
