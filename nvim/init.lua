@@ -19,8 +19,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
   callback = function()
-    -- Start LSP automatically
-    vim.cmd("LspStart")
+ if vim.fn.exists(":LspStart") == 2 then
+      vim.cmd("LspStart")
+    end   -- Start LSP automatically
   end,
 })
 vim.defer_fn(function()
