@@ -6,7 +6,7 @@ lspconfig.ts_ls.setup({
   capabilities = capabilities,
   -- This is the official name in nvim-lspconfig for TypeScript
   cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "html.javascript", "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
   on_attach = function(client, bufnr)
     print("LSP ts_ls attached to buffer " .. bufnr)
     client.server_capabilities.documentFormattingProvider = false
@@ -14,7 +14,16 @@ lspconfig.ts_ls.setup({
 })
 
 -- Other LSP servers
-lspconfig.html.setup({ capabilities = capabilities })
+-- lspconfig.html.setup({ capabilities = capabilities })
+lspconfig.html.setup({
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    -- Ensure the LSP client recognizes JavaScript inside <script> tags
+    client.server_capabilities.documentFormattingProvider = true
+    client.server_capabilities.completionProvider = false
+  end,
+  filetypes = { "html" },
+})
 lspconfig.cssls.setup({ capabilities = capabilities })
 lspconfig.jsonls.setup({ capabilities = capabilities })
 lspconfig.pyright.setup({ capabilities = capabilities })
@@ -37,12 +46,12 @@ lspconfig.lua_ls.setup({
   },
 })
 
-require 'lspconfig'.emmet_ls.setup {
-  filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript', 'html.javascript' },
-  init_options = {
-    showExpandedAbbreviation = "always",
-    showAbbreviationSuggestions = true,
-    syntaxProfiles = {},
-    variables = {},
-  }
-}
+-- require 'lspconfig'.emmet_ls.setup {
+--   filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'javascript', 'typescript' },
+--   init_options = {
+--     showExpandedAbbreviation = "always",
+--     showAbbreviationSuggestions = true,
+--     syntaxProfiles = {},
+--     variables = {},
+--   }
+-- }

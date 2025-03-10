@@ -30,16 +30,22 @@ end, 100)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "html",
   callback = function()
-    vim.bo.syntax = "javascript"
+    vim.bo.syntax = "html"
   end,
 })
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.html",
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
   callback = function()
-    vim.cmd("syntax sync fromstart")
-    vim.cmd("set filetype=html.javascript")
+    vim.cmd("silent! LspStart") -- Start LSP automatically
   end,
 })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*.html",
+--   callback = function()
+--     vim.cmd("syntax sync fromstart")
+--     vim.cmd("set filetype=html.javascript")
+--   end,
+-- })
 
 
 -- Neovide settings only
@@ -202,7 +208,13 @@ require("lsp")
 -- NVIM-CMP (AUTOCOMPLETION) SETUP
 --------------------------------------------------------------------------------
 local cmp = require("cmp")
+
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body) -- Use LuaSnip for snippet expansion
+    end,
+  },
   mapping = {
     -- Toggle autocompletion: if visible, close; if not, open completion menu.
     ['<C-e>'] = cmp.mapping(function(fallback)
@@ -221,10 +233,24 @@ cmp.setup({
     ['<C-q>'] = cmp.mapping.abort(),
   },
   sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "buffer" },
-    { name = "path" },
-  })
+    { name = "nvim_lsp" }, -- Prioritize LSP completions
+    { name = "luasnip" },   -- Include snippets
+    { name = "buffer" },    -- Buffer-based completions
+    { name = "path" },      -- File path completions
+  }),
+  formatting = {
+    format = function(entry, vim_item)
+      -- Add icons for different completion sources
+      local icons = {
+        nvim_lsp = "",
+        luasnip = "",
+        buffer = "",
+        path = "",
+      }
+      vim_item.kind = string.format("%s %s", icons[entry.source.name] or "", vim_item.kind)
+      return vim_item
+    end,
+  },
 })
 
 --------------------------------------------------------------------------------
