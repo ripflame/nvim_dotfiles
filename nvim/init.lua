@@ -20,25 +20,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
   callback = function()
     if vim.fn.exists(":LspStart") == 2 then
-      vim.cmd("LspStart")
+      vim.cmd("silent! LspStart")
     end -- Start LSP automatically
   end,
 })
-vim.defer_fn(function()
-  vim.cmd("LspStart")
-end, 100)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "html",
-  callback = function()
-    vim.bo.syntax = "html"
-  end,
-})
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
-  callback = function()
-    vim.cmd("silent! LspStart") -- Start LSP automatically
-  end,
-})
+-- vim.defer_fn(function()
+--   vim.cmd("LspStart")
+-- end, 100)
+--
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = "*.html",
 --   callback = function()
