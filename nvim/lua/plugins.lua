@@ -1,6 +1,5 @@
 return {
   -- UI Enhancements
-  -- lazy
   {
     "askfiy/visual_studio_code",
     priority = 100,
@@ -9,42 +8,42 @@ return {
     end,
   },
   -- TokyoNight Theme
-  --  {
-  --    "folke/tokyonight.nvim",
-  --    lazy = false,   -- load at startup
-  --    priority = 1000, -- load this plugin before others
-  --    config = function()
-  --      vim.cmd("colorscheme tokyonight-storm")
-  --    end,
-  --  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,   -- load at startup
+  --   priority = 1000, -- load this plugin before others
+  --   config = function()
+  --     vim.cmd("colorscheme tokyonight-storm")
+  --   end,
+  -- },
   -- Edge theme
-  --  {
-  --    'sainnhe/edge',
-  --    lazy = false,
-  --    priority = 1000,
-  --    config = function()
-  --      -- Optionally configure and load the colorscheme
-  --      -- directly inside the plugin declaration.
-  --      -- Set Edge theme configuration options before loading the theme
-  --      vim.g.edge_style = 'aura'
-  --      vim.g.edge_better_performance = 1
-  --      vim.g.edge_enable_italic = true
-  --      vim.cmd.colorscheme('edge')
-  --    end
-  --  },
-  --  everforest theme
-  --  {
-  --    'sainnhe/everforest',
-  --    lazy = false,
-  --    priority = 1000,
-  --    config = function()
-  --      -- Optionally configure and load the colorscheme
-  --      -- directly inside the plugin declaration.
-  --      vim.g.everforest_background = 'dark'
-  --      vim.g.everforest_enable_italic = true
-  --      vim.cmd.colorscheme('everforest')
-  --    end
-  --  },
+  -- {
+  --   'sainnhe/edge',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     -- Optionally configure and load the colorscheme
+  --     -- directly inside the plugin declaration.
+  --     -- Set Edge theme configuration options before loading the theme
+  --     vim.g.edge_style = 'aura'
+  --     vim.g.edge_better_performance = 1
+  --     vim.g.edge_enable_italic = true
+  --     vim.cmd.colorscheme('edge')
+  --   end
+  -- },
+  -- Everforest theme
+  -- {
+  --   'sainnhe/everforest',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     -- Optionally configure and load the colorscheme
+  --     -- directly inside the plugin declaration.
+  --     vim.g.everforest_background = 'dark'
+  --     vim.g.everforest_enable_italic = true
+  --     vim.cmd.colorscheme('everforest')
+  --   end
+  -- },
   { "folke/neodev.nvim" },
 
   -- File Navigation
@@ -82,7 +81,7 @@ return {
   { "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
   { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup() end },
 
-  -- nvim-treesitter: Advanced syntax highlighting, indentation, and incremental selection.
+  -- Syntax Highlighting & Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -96,31 +95,46 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "gnn",   -- Start selection
-            node_incremental = "grn", -- Expand selection
+            init_selection = "gnn",
+            node_incremental = "grn",
             scope_incremental = "grc",
-            node_decremental = "grm", -- Shrink selection
+            node_decremental = "grm",
           },
         },
       }
     end
   },
 
-  -- vim-polyglot: A collection of language packs and filetype plugins.
-  -- It enhances filetype detection and provides language-specific settings.
-  { "sheerun/vim-polyglot" },
-
-  -- Lualine configuration
+  -- Lualine (Status Line)
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "auto",
+          icons_enabled = true,
+          section_separators = { left = "", right = "" },
+          component_separators = { left = "", right = "" },
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", path = 2 } },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
+        },
+      })
+    end,
   },
+
+  -- Null-ls (Formatting & Linting)
   {
-    "nvimtools/none-ls.nvim", -- formerly known as null-ls
-    dependencies = { "nvim-lua/plenary.nvim" }, -- Required dependency
+    "nvimtools/none-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local null_ls = require("null-ls")
-
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettier.with({

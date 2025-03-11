@@ -1,11 +1,13 @@
 local lspconfig = require("lspconfig")
 local cmp_lsp = require("cmp_nvim_lsp")
--- local capabilities = cmp_lsp.default_capabilities()
+
+-- Define LSP capabilities with snippet support.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-
--- Configure ts_ls for JavaScript and TypeScript
+--------------------------------------------------------------------------------
+-- TypeScript/JavaScript LSP (ts_ls)
+--------------------------------------------------------------------------------
 lspconfig.ts_ls.setup({
   capabilities = capabilities,
   cmd = { "typescript-language-server", "--stdio" },
@@ -22,29 +24,42 @@ lspconfig.ts_ls.setup({
   },
 })
 
--- Configure html-lsp for HTML files
+--------------------------------------------------------------------------------
+-- HTML LSP
+--------------------------------------------------------------------------------
 lspconfig.html.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
-    -- Disable HTML LSP's completion provider to avoid conflicts
+    -- Disable HTML LSP's completion provider to avoid conflicts.
     client.server_capabilities.completionProvider = false
   end,
   filetypes = { "html" },
 })
 
--- Other LSP servers
+--------------------------------------------------------------------------------
+-- CSS LSP
+--------------------------------------------------------------------------------
 lspconfig.cssls.setup({ capabilities = capabilities })
-lspconfig.jsonls.setup({ capabilities = capabilities })
-lspconfig.pyright.setup({ capabilities = capabilities })
-lspconfig.lua_ls.setup({ capabilities = capabilities })
 
--- Configure Lua LSP
+--------------------------------------------------------------------------------
+-- JSON LSP
+--------------------------------------------------------------------------------
+lspconfig.jsonls.setup({ capabilities = capabilities })
+
+--------------------------------------------------------------------------------
+-- Python LSP (pyright)
+--------------------------------------------------------------------------------
+lspconfig.pyright.setup({ capabilities = capabilities })
+
+--------------------------------------------------------------------------------
+-- Lua LSP (lua_ls)
+--------------------------------------------------------------------------------
 lspconfig.lua_ls.setup({
   capabilities = capabilities,
   settings = {
     Lua = {
       diagnostics = {
-        globals = { "vim" }, -- Tells the LSP that `vim` is a valid global
+        globals = { "vim" }, -- Tells the LSP that `vim` is a valid global.
       },
       workspace = {
         library = {
@@ -56,9 +71,11 @@ lspconfig.lua_ls.setup({
   },
 })
 
--- Optional: Re-enable Emmet LSP for HTML and CSS
+--------------------------------------------------------------------------------
+-- Emmet LSP (for HTML and CSS)
+--------------------------------------------------------------------------------
 require 'lspconfig'.emmet_ls.setup {
-  filetypes = { 'html', 'css', 'scss' }, -- Limit Emmet to HTML and CSS
+  filetypes = { 'html', 'css', 'scss' },
   init_options = {
     showExpandedAbbreviation = "always",
     showAbbreviationSuggestions = true,

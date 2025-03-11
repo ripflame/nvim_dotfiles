@@ -1,8 +1,14 @@
 --------------------------------------------------------------------------------
--- Lazy.nvim Plugin Manager Setup
+-- LEADER KEY SETTING
+--------------------------------------------------------------------------------
+-- Set the leader key to comma.
+-- This must be set BEFORE loading lazy.nvim.
+vim.g.mapleader = ","
+
+--------------------------------------------------------------------------------
+-- LAZY.NVIM PLUGIN MANAGER SETUP
 --------------------------------------------------------------------------------
 -- Ensure Lazy.nvim is installed.
--- Lazy.nvim is used to manage your plugins.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -10,32 +16,28 @@ if not vim.loop.fs_stat(lazypath) then
     "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath
   })
 end
--- Prepend Lazy.nvim to the runtime path so Neovim can load it.
 vim.opt.rtp:prepend(lazypath)
+
+-- Load plugins from plugins.lua.
+require("lazy").setup("plugins")
 
 --------------------------------------------------------------------------------
 -- GENERAL SETTINGS
 --------------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
-  callback = function()
-    if vim.fn.exists(":LspStart") == 2 then
-      vim.cmd("silent! LspStart")
-    end -- Start LSP automatically
-  end,
-})
--- vim.defer_fn(function()
---   vim.cmd("LspStart")
--- end, 100)
---
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = "*.html",
---   callback = function()
---     vim.cmd("syntax sync fromstart")
---     vim.cmd("set filetype=html.javascript")
---   end,
--- })
+-- Enable true color support.
+vim.opt.termguicolors = true
 
+-- Set line numbering: absolute and relative.
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Reserve a space in the gutter to avoid layout shifts.
+vim.opt.signcolumn = 'yes'
+
+-- Indentation settings.
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 -- Neovide settings only
 if vim.g.neovide then
@@ -56,18 +58,6 @@ if vim.g.neovide then
   vim.o.guifont = font -- Put anything you want to happen only in Neovide here
   vim.g.neovide_scale_factor = .90
 end
-
--- Set line numbering: absolute and relative.
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- Indentation settings.
-vim.opt.tabstop = 2      -- Number of spaces per Tab.
-vim.opt.shiftwidth = 2   -- Number of spaces for each indentation.
-vim.opt.expandtab = true -- Convert Tabs to spaces.
-
--- Enable true color support.
-vim.opt.termguicolors = true
 
 -- Enable smart indentation and cursor line highlighting.
 vim.opt.smartindent = true
@@ -92,120 +82,78 @@ vim.opt.smartcase = true  -- ...unless an uppercase character is used.
 vim.opt.hlsearch = true   -- Highlight all search matches.
 
 --------------------------------------------------------------------------------
--- SYNTAX & COLORSCHEME
---------------------------------------------------------------------------------
--- Enable syntax highlighting.
-vim.cmd("syntax on")
-
---------------------------------------------------------------------------------
--- LEADER KEY SETTING
---------------------------------------------------------------------------------
--- Set the leader key to comma.
-vim.g.mapleader = ","
-
---------------------------------------------------------------------------------
--- BASIC KEY MAPPINGS
+-- KEY MAPPINGS
 --------------------------------------------------------------------------------
 -- Open the built-in file explorer (netrw) using <leader>pv.
 vim.keymap.set("n", "<leader>s", vim.cmd.Ex, { desc = "Open file explorer" })
 
---------------------------------------------------------------------------------
--- SCROLLING MAPPINGS (Smooth scrolling with Ctrl+e / Ctrl+y)
---------------------------------------------------------------------------------
+-- Smooth scrolling with Ctrl+e / Ctrl+y.
 vim.keymap.set("n", "<C-e>", "3<C-e>", { noremap = true, desc = "Scroll down 3 lines" })
 vim.keymap.set("n", "<C-y>", "3<C-y>", { noremap = true, desc = "Scroll up 3 lines" })
 
---------------------------------------------------------------------------------
--- SEARCH HIGHLIGHT TOGGLE
---------------------------------------------------------------------------------
 -- Toggle search highlight (clear highlighting) with //.
 vim.keymap.set("n", "//", ":nohlsearch<CR>", { silent = true, desc = "Clear search highlight" })
 
---------------------------------------------------------------------------------
--- QUICK END-OF-LINE SEMICOLON INSERTION
---------------------------------------------------------------------------------
--- Append a semicolon at the end of the current line:
--- Moves to end of line in Insert mode (A), types ";" then returns to Normal mode.
+-- Append a semicolon at the end of the current line.
 vim.keymap.set("n", ";;", "A;<ESC>", { silent = true, desc = "Append semicolon at end of line" })
 
---------------------------------------------------------------------------------
--- TRIM TRAILING WHITESPACE
---------------------------------------------------------------------------------
--- Remove trailing whitespace on demand using <leader>t.
+-- Trim trailing whitespace on demand using <leader>t.
 vim.keymap.set("n", "<leader>t", ":%s/\\s\\+$//<CR>", { silent = true, desc = "Trim trailing whitespace" })
 
---------------------------------------------------------------------------------
--- WINDOW NAVIGATION MAPPINGS
---------------------------------------------------------------------------------
 -- Better window navigation using Ctrl + (H, J, K, L).
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>", { noremap = true, desc = "Move to window below" })
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>", { noremap = true, desc = "Move to window above" })
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { noremap = true, desc = "Move to window right" })
 vim.keymap.set("n", "<C-H>", "<C-W><C-H>", { noremap = true, desc = "Move to window left" })
 
---------------------------------------------------------------------------------
--- EMACS-LIKE NAVIGATION IN INSERT MODE
---------------------------------------------------------------------------------
--- In insert mode, use Ctrl+b to move left, Ctrl+f to move right, and Ctrl+e to go to the end of the line.
+-- Emacs-like navigation in Insert mode.
 vim.keymap.set("i", "<C-b>", "<Left>", { desc = "Move cursor left" })
 vim.keymap.set("i", "<C-f>", "<Right>", { desc = "Move cursor right" })
 vim.keymap.set("i", "<C-e>", "<End>", { desc = "Move cursor to end of line" })
 
---------------------------------------------------------------------------------
--- OPEN CURRENT DIRECTORY IN EXPLORER (WINDOWS-SPECIFIC)
---------------------------------------------------------------------------------
--- Open the current working directory in Windows Explorer.
+-- Open the current working directory in the system file manager.
 local open_cmd = vim.loop.os_uname().sysname == "Windows_NT" and "explorer ." or "open ."
-
 vim.keymap.set("n", "<leader>o", ":!" .. open_cmd .. "<CR>", {
   noremap = true,
   silent = true,
   desc = "Open current directory in file manager",
 })
 
---------------------------------------------------------------------------------
--- PLUGIN MANAGEMENT
---------------------------------------------------------------------------------
--- Load your plugins via Lazy.nvim using the plugins defined in plugins.lua.
-require("lazy").setup("plugins")
+-- Telescope Keymaps (File Navigation)
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", function()
+  builtin.find_files({
+    hidden = true,
+    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
+  })
+end, { desc = "Find hidden files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Grep text" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 
--- Lualine settings
-require("lualine").setup({
-  options = {
-    theme = "auto",
-    icons_enabled = true,
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
-  },
-  sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { { "filename", path = 2 } },
-    lualine_x = { "encoding", "fileformat", "filetype" },
-    lualine_y = { "progress" },
-    lualine_z = { "location" },
-  },
-})
+-- Custom Mappings & Scripts (From Old Config)
+-- Terminal command: open a terminal in a horizontal split.
+vim.cmd([[
+  command! OpenTerminal split | terminal
+]])
+vim.keymap.set("n", "<leader>ev", function()
+  vim.cmd("e " .. vim.fn.stdpath("config") .. "/init.lua")
+end, { silent = true })
 
 --------------------------------------------------------------------------------
--- LSP CONFIGURATION
+-- LSP & AUTOCOMPLETION
 --------------------------------------------------------------------------------
--- Load your LSP configuration from lsp.lua.
+-- Load LSP configurations from lsp.lua.
 require("lsp")
 
---------------------------------------------------------------------------------
--- NVIM-CMP (AUTOCOMPLETION) SETUP
---------------------------------------------------------------------------------
+-- Configure nvim-cmp for autocompletion.
 local cmp = require("cmp")
-
 cmp.setup({
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body) -- Use LuaSnip for snippet expansion
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = {
-    -- Toggle autocompletion: if visible, close; if not, open completion menu.
     ['<C-e>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.close()
@@ -213,23 +161,19 @@ cmp.setup({
         cmp.complete()
       end
     end, { "i", "s" }),
-    -- Navigate completion items.
     ['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-k>'] = cmp.mapping.select_prev_item(),
-    -- Confirm selection with Enter.
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    -- Abort completion with Ctrl+q.
     ['<C-q>'] = cmp.mapping.abort(),
   },
   sources = cmp.config.sources({
-    { name = "nvim_lsp" }, -- Prioritize LSP completions
-    { name = "luasnip" },   -- Include snippets
-    { name = "buffer" },    -- Buffer-based completions
-    { name = "path" },      -- File path completions
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
   }),
   formatting = {
     format = function(entry, vim_item)
-      -- Add icons for different completion sources
       local icons = {
         nvim_lsp = "",
         luasnip = "",
@@ -242,41 +186,11 @@ cmp.setup({
   },
 })
 
---------------------------------------------------------------------------------
--- LSP-RELATED MAPPINGS
---------------------------------------------------------------------------------
--- Rename variable using LSP.
+-- LSP-related key mappings.
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
-
--- Format code using LSP.
 vim.keymap.set("n", "<leader>F", function()
   vim.lsp.buf.format { async = true }
 end, { desc = "Format code" })
-
---------------------------------------------------------------------------------
--- TELESCOPE KEYMAPS (FILE NAVIGATION)
---------------------------------------------------------------------------------
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", function()
-  require("telescope.builtin").find_files({
-    hidden = true,
-    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
-  })
-end, { desc = "Find hidden files" })
--- vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Grep text" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
-
---------------------------------------------------------------------------------
--- CUSTOM MAPPINGS & SCRIPTS (FROM OLD CONFIG)
---------------------------------------------------------------------------------
--- Terminal command: open a terminal in a horizontal split.
-vim.cmd([[
-  command! OpenTerminal split | terminal
-]])
-vim.keymap.set("n", "<leader>ev", function()
-  vim.cmd("e " .. vim.fn.stdpath("config") .. "/init.lua")
-end, { silent = true })
 
 --------------------------------------------------------------------------------
 -- END OF CONFIGURATION
