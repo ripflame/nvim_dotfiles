@@ -1,6 +1,14 @@
 local lspconfig = require("lspconfig")
 local cmp_lsp = require("cmp_nvim_lsp")
 
+-- Set up default capabilities for LSP servers, integrating cmp_nvim_lsp.
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
+
 -- Define LSP capabilities with snippet support.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -29,11 +37,6 @@ lspconfig.ts_ls.setup({
 --------------------------------------------------------------------------------
 lspconfig.html.setup({
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    -- Disable HTML LSP's completion provider to avoid conflicts.
-    client.server_capabilities.completionProvider = false
-  end,
-  filetypes = { "html" },
 })
 
 --------------------------------------------------------------------------------
@@ -83,3 +86,41 @@ require 'lspconfig'.emmet_ls.setup {
     variables = {},
   }
 }
+
+--------------------------------------------------------------------------------
+-- Marksman LSP (For Markdown)
+--------------------------------------------------------------------------------
+require('lspconfig').marksman.setup({
+  capabilities = capabilities,
+})
+
+--------------------------------------------------------------------------------
+-- LSP Keybindings (Active only when LSP is attached)
+--------------------------------------------------------------------------------
+-- Create an autocmd that triggers when an LSP client attaches to a buffer.
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',  -- Description for the autocmd
+  callback = function(event)
+    -- Define options for keybindings, scoped to the current buffer.
+    local opts = {buffer = event.buf}
+
+    -- Keybinding: Go to the definition of the symbol under the cursor.
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+
+    -- Keybinding: Go to the declaration of the symbol under the cursor.
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+
+    -- Keybinding: Go to the implementation of the symbol under the cursor.
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+
+    -- Keybinding: Go to the type definition of the symbol under the cursor.
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+
+    -- Keybinding: Show all references to the symbol under the cursor.
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+
+    -- Keybinding: Show signature help (e.g., function parameters) for the symbol under the cursor.
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+
+  end,
+})

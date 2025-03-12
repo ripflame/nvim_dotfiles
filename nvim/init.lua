@@ -27,6 +27,9 @@ require("lazy").setup("plugins")
 -- Enable true color support.
 vim.opt.termguicolors = true
 
+-- Reserve a space in the gutter to avoid layout shifts.
+vim.opt.signcolumn = 'yes'
+
 -- Set line numbering: absolute and relative.
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -168,6 +171,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    { name = 'nvim_lsp_signature_help' },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
@@ -191,6 +195,12 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable"
 vim.keymap.set("n", "<leader>F", function()
   vim.lsp.buf.format { async = true }
 end, { desc = "Format code" })
+
+-- Hover over symbol to show documentation.
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation" })
+
+-- Show code actions (e.g., quick fixes, refactorings).
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Show code actions" })
 
 --------------------------------------------------------------------------------
 -- END OF CONFIGURATION
