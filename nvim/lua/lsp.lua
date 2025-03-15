@@ -23,7 +23,7 @@ capabilities.textDocument.foldingRange = {
 require("ufo").setup({
   open_fold_hl_timeout = 0,
   close_fold_kinds = {},
-  provider_selector = function(_, _, _)
+  provider_selector = function(_, filetype, _)
     if filetype == "html" then
       return { "indent" }
     else

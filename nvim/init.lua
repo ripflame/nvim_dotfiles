@@ -67,7 +67,7 @@ vim.opt.smartindent = true
 vim.opt.cursorline = true
 
 -- Set scrolling offset.
-vim.opt.scrolloff = 12
+-- vim.opt.scrolloff = 8
 
 -- Disable line wrapping.
 vim.opt.wrap = false
@@ -220,8 +220,8 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Show code a
 --------------------------------------------------------------------------------
 require("treesitter-context").setup({
   enable = true,
-  max_lines = 3,
-  min_window_height = 10,
+  max_lines = 4,
+  min_window_height = 5,
   mode = "cursor",
   separator = "─"
 })
