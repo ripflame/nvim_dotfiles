@@ -1,12 +1,12 @@
 return {
   -- UI Enhancements
-  {
-    "askfiy/visual_studio_code",
-    priority = 100,
-    config = function()
-      vim.cmd([[colorscheme visual_studio_code]])
-    end,
-  },
+  -- {
+  --   "askfiy/visual_studio_code",
+  --   priority = 100,
+  --   config = function()
+  --     vim.cmd([[colorscheme visual_studio_code]])
+  --   end,
+  -- },
   -- TokyoNight Theme
   -- {
   --   "folke/tokyonight.nvim",
@@ -32,18 +32,19 @@ return {
   --   end
   -- },
   -- Everforest theme
-  -- {
-  --   'sainnhe/everforest',
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     -- Optionally configure and load the colorscheme
-  --     -- directly inside the plugin declaration.
-  --     vim.g.everforest_background = 'dark'
-  --     vim.g.everforest_enable_italic = true
-  --     vim.cmd.colorscheme('everforest')
-  --   end
-  -- },
+  {
+    'sainnhe/everforest',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      vim.g.everforest_background = 'dark'
+      vim.g.everforest_enable_italic = true
+      vim.cmd.colorscheme('everforest')
+    end
+  },
+
   { "folke/neodev.nvim" },
 
   -- File Navigation
@@ -163,5 +164,13 @@ return {
   -- Virtual column for structural awareness
   {
     "lukas-reineke/virt-column.nvim"
-  }
+  },
+
+{
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+}
 }

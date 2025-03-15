@@ -24,6 +24,20 @@ require("lazy").setup("plugins")
 --------------------------------------------------------------------------------
 -- GENERAL SETTINGS
 --------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "python", "lua", "javascript", "typescript" },
+  callback = function()
+    vim.o.colorcolumn = "100"
+  end
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.o.colorcolumn = "80" -- Keep prose at readable lengths
+  end
+})
+
 -- Enable true color support.
 vim.opt.termguicolors = true
 
@@ -85,14 +99,36 @@ vim.opt.smartcase = true  -- ...unless an uppercase character is used.
 vim.opt.hlsearch = true   -- Highlight all search matches.
 
 -- Fold settings.
-vim.opt.foldmethod = "manual"
-vim.opt.foldenable = true
-vim.o.foldenable = true -- Disable folding by default
-vim.o.foldlevel = 99 -- Keep everything unfolded
-vim.o.foldlevelstart = 99 -- Prevent automatic folding on file open
-vim.o.foldcolumn = "1" -- Optional: Show fold column for easier toggling
-vim.o.foldmethod = "expr" -- Use expression-based folding (needed for Treesitter or ufo)
-vim.o.foldexpr = "nvim_treesitter#foldexpr()" -- If using Treesitter
+-- Use Treesitter for folding (change to "indent" if needed)
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Keep folds open by default on first open but never force them open later
+vim.o.foldenable = true   -- Folding is enabled, but doesn't auto-collapse
+vim.o.foldlevel = 99      -- Keeps everything open by default
+vim.o.foldlevelstart = 99 -- Prevents auto-collapsing on file open
+vim.o.foldcolumn = "1"    -- Show fold column for easier manual toggling
+
+-- Auto-save and restore folds (Prevents folds from resetting)
+-- Auto-save folds, but only if the buffer has a valid file name
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  pattern = "*",
+  callback = function()
+    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+      vim.cmd("silent! mkview")
+    end
+  end
+})
+
+-- Restore folds, but only if the buffer has a valid file name
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
+  callback = function()
+    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+      vim.cmd("silent! loadview")
+    end
+  end
+})
 
 --------------------------------------------------------------------------------
 -- KEY MAPPINGS
@@ -233,6 +269,31 @@ require("virt-column").setup({
   char = "│",
   highlight = "VertSplit"
 })
+
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
 
 --------------------------------------------------------------------------------
 -- END OF CONFIGURATION
