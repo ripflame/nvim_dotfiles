@@ -84,10 +84,23 @@ vim.opt.ignorecase = true -- Ignore case during search...
 vim.opt.smartcase = true  -- ...unless an uppercase character is used.
 vim.opt.hlsearch = true   -- Highlight all search matches.
 
+-- Fold settings.
+vim.opt.foldmethod = "manual"
+vim.opt.foldenable = true
+vim.o.foldenable = true -- Disable folding by default
+vim.o.foldlevel = 99 -- Keep everything unfolded
+vim.o.foldlevelstart = 99 -- Prevent automatic folding on file open
+vim.o.foldcolumn = "1" -- Optional: Show fold column for easier toggling
+vim.o.foldmethod = "expr" -- Use expression-based folding (needed for Treesitter or ufo)
+vim.o.foldexpr = "nvim_treesitter#foldexpr()" -- If using Treesitter
+
 --------------------------------------------------------------------------------
 -- KEY MAPPINGS
 --------------------------------------------------------------------------------
--- Open the built-in file explorer (netrw) using <leader>pv.
+-- Close the quickfix window.
+vim.keymap.set("n", "<leader>cc", ":cclose<CR>", { noremap = true, desc = "Close quickfix window" })
+
+-- Open the built-in file explorer (netrw) using <leader>s.
 vim.keymap.set("n", "<leader>s", vim.cmd.Ex, { desc = "Open file explorer" })
 
 -- Smooth scrolling with Ctrl+e / Ctrl+y.
@@ -201,6 +214,25 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show documentation" })
 
 -- Show code actions (e.g., quick fixes, refactorings).
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Show code actions" })
+
+--------------------------------------------------------------------------------
+-- Treesitter Context
+--------------------------------------------------------------------------------
+require("treesitter-context").setup({
+  enable = true,
+  max_lines = 3,
+  min_window_height = 10,
+  mode = "cursor",
+  separator = "─"
+})
+
+--------------------------------------------------------------------------------
+-- VirtColumn
+--------------------------------------------------------------------------------
+require("virt-column").setup({
+  char = "│",
+  highlight = "VertSplit"
+})
 
 --------------------------------------------------------------------------------
 -- END OF CONFIGURATION

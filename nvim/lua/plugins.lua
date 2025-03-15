@@ -47,7 +47,7 @@ return {
   { "folke/neodev.nvim" },
 
   -- File Navigation
-  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  { "nvim-telescope/telescope.nvim",      dependencies = { "nvim-lua/plenary.nvim" } },
 
   -- LSP & Autocompletion
   { "neovim/nvim-lspconfig" },
@@ -145,4 +145,23 @@ return {
       })
     end,
   },
+
+  -- Folding with sticky headers
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = {
+      "kevinhwang91/promise-async"
+    }
+  },
+
+  -- Sticky context for function headers and HTML elements
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" }
+  },
+
+  -- Virtual column for structural awareness
+  {
+    "lukas-reineke/virt-column.nvim"
+  }
 }

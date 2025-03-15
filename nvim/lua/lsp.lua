@@ -12,6 +12,26 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 -- Define LSP capabilities with snippet support.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
+
+--------------------------------------------------------------------------------
+-- LSP-based or indendt-base folding
+--------------------------------------------------------------------------------
+require("ufo").setup({
+  open_fold_hl_timeout = 0,
+  close_fold_kinds = {},
+  provider_selector = function(_, _, _)
+    if filetype == "html" then
+      return { "indent" }
+    else
+      return {"lsp", "indent" }
+    end
+
+  end
+})
 
 --------------------------------------------------------------------------------
 -- TypeScript/JavaScript LSP (ts_ls)
@@ -100,10 +120,10 @@ require('lspconfig').marksman.setup({
 --------------------------------------------------------------------------------
 -- Create an autocmd that triggers when an LSP client attaches to a buffer.
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',  -- Description for the autocmd
+  desc = 'LSP actions', -- Description for the autocmd
   callback = function(event)
     -- Define options for keybindings, scoped to the current buffer.
-    local opts = {buffer = event.buf}
+    local opts = { buffer = event.buf }
 
     -- Keybinding: Go to the definition of the symbol under the cursor.
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
@@ -122,6 +142,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Keybinding: Show signature help (e.g., function parameters) for the symbol under the cursor.
     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-
   end,
 })
