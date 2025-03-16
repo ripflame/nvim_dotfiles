@@ -140,7 +140,8 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettier.with({
-            filetypes = { "javascript", "typescript", "html", "css", "json" }
+            filetypes = { "javascript", "typescript", "html", "css", "json" },
+            extra_args = { "--print-width", "100" }, -- Set max line width to 100
           }),
         },
       })
@@ -166,11 +167,11 @@ return {
     "lukas-reineke/virt-column.nvim"
   },
 
-{
+  {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     ---@module "ibl"
     ---@type ibl.config
     opts = {},
-}
+  }
 }
