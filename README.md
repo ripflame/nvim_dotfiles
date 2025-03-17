@@ -63,7 +63,7 @@ nvim
 - **everforest.nvim** => Custom color theme
 - **virt-colum.nvim** => Replace the colorcolumn wiht any char
 - **indent-blankline.nvim** => Show indentation vertical lines with differente colors
-- ~~**bufferline.nvim** => Enhanced tab management~~
+- **bufferline.nvim** => Enhanced tab management
 - ~~**which-key.nvim** => Keybinding suggestions~~
 
 ### **File Navigation & Utilities**
