@@ -1,92 +1,134 @@
+--------------------------------------------------------------------------------
+-- PLUGINS CONFIGURATION
+--------------------------------------------------------------------------------
+
 return {
   -- UI Enhancements
-  -- {
-  --   "askfiy/visual_studio_code",
-  --   priority = 100,
-  --   config = function()
-  --     vim.cmd([[colorscheme visual_studio_code]])
-  --   end,
-  -- },
-  -- TokyoNight Theme
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,   -- load at startup
-  --   priority = 1000, -- load this plugin before others
-  --   config = function()
-  --     vim.cmd("colorscheme tokyonight-storm")
-  --   end,
-  -- },
-  -- Edge theme
-  -- {
-  --   'sainnhe/edge',
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     -- Optionally configure and load the colorscheme
-  --     -- directly inside the plugin declaration.
-  --     -- Set Edge theme configuration options before loading the theme
-  --     vim.g.edge_style = 'aura'
-  --     vim.g.edge_better_performance = 1
-  --     vim.g.edge_enable_italic = true
-  --     vim.cmd.colorscheme('edge')
-  --   end
-  -- },
-  -- Everforest theme
   {
     'sainnhe/everforest',
     lazy = false,
     priority = 1000,
     config = function()
-      -- Optionally configure and load the colorscheme
-      -- directly inside the plugin declaration.
       vim.g.everforest_background = 'dark'
       vim.g.everforest_enable_italic = true
       vim.cmd.colorscheme('everforest')
     end
   },
 
-  { "folke/neodev.nvim" },
+  -- Development Tools
+  { "folke/neodev.nvim", opts = {} },
 
   -- File Navigation
-  { "nvim-telescope/telescope.nvim",      dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "Telescope",
+    keys = {
+      { "<leader>ff", desc = "Find files" },
+      { "<leader>fg", desc = "Live grep" },
+      { "<leader>fb", desc = "Buffers" },
+    },
+  },
 
   -- LSP & Autocompletion
-  { "neovim/nvim-lspconfig" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "hrsh7th/cmp-nvim-lsp-signature-help" },
-  { "L3MON4D3/LuaSnip" },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "folke/neodev.nvim",
+    },
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+    },
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        mapping = {
+          ['<C-e>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.close()
+            else
+              cmp.complete()
+            end
+          end, { "i", "s" }),
+          ['<C-j>'] = cmp.mapping.select_next_item(),
+          ['<C-k>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-q>'] = cmp.mapping.abort(),
+        },
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = 'nvim_lsp_signature_help' },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+        formatting = {
+          format = function(entry, vim_item)
+            local icons = {
+              nvim_lsp = "?",
+              luasnip = "?",
+              buffer = "?",
+              path = "?",
+            }
+            vim_item.kind = string.format("%s %s", icons[entry.source.name] or "?", vim_item.kind)
+            return vim_item
+          end,
+        },
+      })
+    end
+  },
 
   -- Git Integration
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-    end
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {}
   },
+  
   {
     "tpope/vim-fugitive",
     event = "VeryLazy",
   },
+  
   {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
-    config = function()
-      require("diffview").setup()
-    end
+    opts = {}
   },
 
   -- Autopairs & Commenting
-  { "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
-  { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup() end },
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {}
+  },
+  
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {}
+  },
 
   -- Syntax Highlighting & Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = { "javascript", "typescript", "lua", "python", "html", "css" },
@@ -116,8 +158,8 @@ return {
         options = {
           theme = "auto",
           icons_enabled = true,
-          section_separators = { left = "", right = "" },
-          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          component_separators = { left = "", right = "" },
         },
         sections = {
           lualine_a = { "mode" },
@@ -131,47 +173,105 @@ return {
     end,
   },
 
-  -- Null-ls (Formatting & Linting)
+  -- Formatting & Linting
   {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local null_ls = require("null-ls")
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettier.with({
             filetypes = { "javascript", "typescript", "html", "css", "json" },
-            extra_args = { "--print-width", "100" }, -- Set max line width to 100
+            extra_args = { "--print-width", "100" },
           }),
         },
       })
     end,
   },
 
-  -- Folding with sticky headers
+  -- Code Folding & Structure
   {
     "kevinhwang91/nvim-ufo",
     dependencies = {
       "kevinhwang91/promise-async"
+    },
+    event = "BufReadPost",
+    opts = {
+      open_fold_hl_timeout = 0,
+      close_fold_kinds = {},
+      provider_selector = function(bufnr, filetype, _)
+        -- Force indent for known problematic filetypes
+        local force_indent = { html = true, xml = true }
+    
+        if force_indent[filetype] then
+          return { "indent" }
+        end
+    
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        for _, client in ipairs(clients) do
+          if client.server_capabilities and client.server_capabilities.foldingRangeProvider then
+            return { "lsp", "indent" } -- Use LSP if available
+          end
+        end
+    
+        return { "indent" } -- Fallback to indent if no LSP folding
+      end
     }
   },
 
-  -- Sticky context for function headers and HTML elements
+  -- Code Context
   {
     "nvim-treesitter/nvim-treesitter-context",
-    dependencies = { "nvim-treesitter/nvim-treesitter" }
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "BufReadPost",
+    opts = {
+      enable = true,
+      max_lines = 4,
+      min_window_height = 5,
+      mode = "cursor",
+      separator = "="
+    }
   },
 
-  -- Virtual column for structural awareness
+  -- Visual Guides
   {
-    "lukas-reineke/virt-column.nvim"
+    "lukas-reineke/virt-column.nvim",
+    event = "BufReadPost",
+    opts = {
+      char = "|",
+      highlight = "VertSplit"
+    }
   },
 
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
+    event = "BufReadPost",
+    config = function()
+      local highlight = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
+      }
+      
+      local hooks = require "ibl.hooks"
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+      end)
+      
+      require("ibl").setup { indent = { highlight = highlight } }
+    end
   }
 }
