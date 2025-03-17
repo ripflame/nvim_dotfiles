@@ -56,7 +56,6 @@ nvim
 - **nvim-lspconfig** => Pre-configured LSP for various languages
 - **null-ls.nvim** => Formatter and linter integration
 - **vim-fugitive** => Easy git access with :Git
-- **none-ls** => For formatting and linting
 - ~~**mason.nvim** => Easy LSP, DAP, and formatter installation~~
 - ~~**nvim-dap** => Debugging support~~
 
