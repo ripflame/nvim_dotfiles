@@ -80,10 +80,10 @@ return {
         formatting = {
           format = function(entry, vim_item)
             local icons = {
-              nvim_lsp = "?",
-              luasnip = "?",
-              buffer = "?",
-              path = "?",
+              nvim_lsp = "",
+              luasnip = "",
+              buffer = "",
+              path = "",
             }
             vim_item.kind = string.format("%s %s", icons[entry.source.name] or "?", vim_item.kind)
             return vim_item
@@ -231,7 +231,7 @@ return {
       max_lines = 4,
       min_window_height = 5,
       mode = "cursor",
-      separator = "="
+      separator = "─"
     }
   },
 
@@ -240,7 +240,7 @@ return {
     "lukas-reineke/virt-column.nvim",
     event = "BufReadPost",
     opts = {
-      char = "|",
+      char = "│",
       highlight = "VertSplit"
     }
   },
