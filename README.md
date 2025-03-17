@@ -50,21 +50,25 @@ nvim
 - **telescope.nvim** => Fuzzy finder and file searching
 - **lualine.nvim** => A modern statusline
 - **gitsigns.nvim** => Git integration inside Neovim
+- **ufo.nvim** => Code folding with LSP or indentation as a fallback
 
 ### **Development Tools**
 - **nvim-lspconfig** => Pre-configured LSP for various languages
 - **null-ls.nvim** => Formatter and linter integration
-- **mason.nvim** => Easy LSP, DAP, and formatter installation
-- **nvim-dap** => Debugging support
+- **vim-fugitive** => Easy git access with :Git
+- **none-ls** => For formatting and linting
+- ~~**mason.nvim** => Easy LSP, DAP, and formatter installation~~
+- ~~**nvim-dap** => Debugging support~~
 
 ### **UI Enhancements**
-- **catppuccin.nvim** => Custom color theme
-- **bufferline.nvim** => Enhanced tab management
-- **which-key.nvim** => Keybinding suggestions
+- **everforest.nvim** => Custom color theme
+- **virt-colum.nvim** => Replace the colorcolumn wiht any char
+- **indent-blankline.nvim** => Show indentation vertical lines with differente colors
+- ~~**bufferline.nvim** => Enhanced tab management~~
+- ~~**which-key.nvim** => Keybinding suggestions~~
 
 ### **File Navigation & Utilities**
-- **telescope.nvim** => Fuzzy finder
-- **nvim-tree.lua** => File explorer
+- ~~**nvim-tree.lua** => File explorer~~
 - **nvim-autopairs** => Auto-close brackets and quotes
 - **comment.nvim** => Quick commenting
 

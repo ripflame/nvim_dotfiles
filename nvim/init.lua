@@ -26,4 +26,4 @@ require("lazy").setup("plugins")
 require("lsp")
 
 -- Success message
-print("Neovim configuration loaded successfully!")
+-- print("Neovim configuration loaded successfully!")
