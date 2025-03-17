@@ -1,11 +1,11 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- TypeScript/JavaScript LSP CONFIGURATION
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 local lspconfig = require("lspconfig")
 local lsp = require("lsp")
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   capabilities = lsp.capabilities,
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },

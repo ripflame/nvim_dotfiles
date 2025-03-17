@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- PLUGINS CONFIGURATION
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 return {
   -- UI Enhancements
@@ -99,12 +99,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {}
   },
-  
+
   {
     "tpope/vim-fugitive",
     event = "VeryLazy",
   },
-  
+
   {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
@@ -117,7 +117,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {}
   },
-  
+
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -204,18 +204,18 @@ return {
       provider_selector = function(bufnr, filetype, _)
         -- Force indent for known problematic filetypes
         local force_indent = { html = true, xml = true }
-    
+
         if force_indent[filetype] then
           return { "indent" }
         end
-    
+
         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
         for _, client in ipairs(clients) do
           if client.server_capabilities and client.server_capabilities.foldingRangeProvider then
             return { "lsp", "indent" } -- Use LSP if available
           end
         end
-    
+
         return { "indent" } -- Fallback to indent if no LSP folding
       end
     }
@@ -259,7 +259,7 @@ return {
         "RainbowViolet",
         "RainbowCyan",
       }
-      
+
       local hooks = require "ibl.hooks"
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
         vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
@@ -270,7 +270,7 @@ return {
         vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
         vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
       end)
-      
+
       require("ibl").setup { indent = { highlight = highlight } }
     end
   }

@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- KEY MAPPINGS
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Helper function for easier key mapping
 local map = function(mode, key, cmd, opts)
@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
     -- Buffer-local mappings
     local opts = { buffer = event.buf }
-    
+
     map("n", "gd", vim.lsp.buf.definition, opts)
     map("n", "gD", vim.lsp.buf.declaration, opts)
     map("n", "gi", vim.lsp.buf.implementation, opts)

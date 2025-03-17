@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- WEB DEVELOPMENT LSP CONFIGURATIONS (HTML, CSS, JSON, Emmet)
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 local lspconfig = require("lspconfig")
 local lsp = require("lsp")
@@ -8,17 +8,17 @@ local lsp = require("lsp")
 -- HTML LSP
 lspconfig.html.setup({
   capabilities = lsp.capabilities,
-  cmd = { "vscode-html-language-server", "--stdio" },
+  cmd = { "html-languageserver", "--stdio" },
 })
 
 -- CSS LSP
-lspconfig.cssls.setup({ 
+lspconfig.cssls.setup({
   capabilities = lsp.capabilities,
   cmd = { "vscode-css-language-server", "--stdio" },
 })
 
 -- JSON LSP
-lspconfig.jsonls.setup({ 
+lspconfig.jsonls.setup({
   capabilities = lsp.capabilities,
   cmd = { "vscode-json-language-server", "--stdio" },
 })

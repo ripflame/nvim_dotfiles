@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- GENERAL SETTINGS AND OPTIONS
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Syntax and file type-related settings
 vim.api.nvim_create_autocmd("FileType", {
@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "text" },
   callback = function()
-    vim.o.colorcolumn = "80" -- Keep prose at readable lengths
+    vim.o.colorcolumn = "100" -- Keep prose at readable lengths
   end
 })
 

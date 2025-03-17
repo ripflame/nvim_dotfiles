@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 -- NEOVIM CONFIGURATION - ENTRY POINT
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 -- Set the leader key to comma (before loading lazy.nvim)
 vim.g.mapleader = ","
@@ -16,8 +16,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load core modules
-require("core.options")  -- General settings
-require("core.keymaps")  -- Key mappings
+require("core.options") -- General settings
+require("core.keymaps") -- Key mappings
 
 -- Load plugins
 require("lazy").setup("plugins")
