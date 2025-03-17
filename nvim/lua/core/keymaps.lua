@@ -42,22 +42,37 @@ map("n", "<leader>o", ":!" .. open_cmd .. "<CR>", { desc = "Open current directo
 vim.cmd([[command! OpenTerminal split | terminal]])
 
 -- Telescope mappings (loaded conditionally to avoid errors if telescope isn't loaded yet)
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyLoad",
-  callback = function(event)
-    if event.data == "telescope.nvim" then
-      local builtin = require("telescope.builtin")
-      map("n", "<leader>ff", function()
-        builtin.find_files({
-          hidden = true,
-          find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
-        })
-      end, { desc = "Find hidden files" })
-      map("n", "<leader>fg", builtin.live_grep, { desc = "Grep text" })
-      map("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
-    end
-  end
-})
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "LazyLoad",
+--   callback = function(event)
+--     if event.data == "telescope.nvim" then
+--       local builtin = require("telescope.builtin")
+--       map("n", "<leader>ff", function()
+--         builtin.find_files({
+--           hidden = true,
+--           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
+--         })
+--       end, { desc = "Find hidden files" })
+--       map("n", "<leader>fg", builtin.live_grep, { desc = "Grep text" })
+--       map("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+--     end
+--   end
+-- })
+-- Define mappings that both load and use Telescope
+map("n", "<leader>ff", function()
+  require("telescope.builtin").find_files({
+    hidden = true,
+    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
+  })
+end, { desc = "Find hidden files" })
+
+map("n", "<leader>fg", function()
+  require("telescope.builtin").live_grep()
+end, { desc = "Grep text" })
+
+map("n", "<leader>fb", function()
+  require("telescope.builtin").buffers()
+end, { desc = "Find buffers" })
 
 -- LSP specific keymaps (these will be active when LSP attaches)
 vim.api.nvim_create_autocmd('LspAttach', {

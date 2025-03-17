@@ -17,13 +17,15 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load core modules
 require("core.options") -- General settings
-require("core.keymaps") -- Key mappings
 
 -- Load plugins
 require("lazy").setup("plugins")
+
+-- Load keymaps
+require("core.keymaps") -- Key mappings
 
 -- Load LSP configurations
 require("lsp")
 
 -- Success message
--- print("Neovim configuration loaded successfully!")
+print("Neovim configuration loaded successfully!")
