@@ -11,7 +11,7 @@ end
 
 -- General mappings
 map("n", "<leader>cc", ":cclose<CR>", { desc = "Close quickfix window" })
-map("n", "<leader>s", vim.cmd.Ex, { desc = "Open file explorer" })
+map("n", "<leader>s", ":NvimTreeToggle<CR>", { desc = "Open file explorer" })
 map("n", "//", ":nohlsearch<CR>", { desc = "Clear search highlight" })
 map("n", ";;", "A;<ESC>", { desc = "Append semicolon at end of line" })
 map("n", "<leader>t", ":%s/\\s\\+$//<CR>", { desc = "Trim trailing whitespace" })

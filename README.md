@@ -67,7 +67,7 @@ nvim
 - ~~**which-key.nvim** => Keybinding suggestions~~
 
 ### **File Navigation & Utilities**
-- ~~**nvim-tree.lua** => File explorer~~
+- **nvim-tree.lua** => File explorer
 - **nvim-autopairs** => Auto-close brackets and quotes
 - **comment.nvim** => Quick commenting
 

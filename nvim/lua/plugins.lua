@@ -16,7 +16,8 @@ return {
   },
 
   -- Bufferline setup
-  { "akinsho/bufferline.nvim",
+  {
+    "akinsho/bufferline.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("bufferline").setup()
@@ -31,6 +32,18 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "Telescope",
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+    end,
   },
 
   -- LSP & Autocompletion
