@@ -64,7 +64,7 @@ nvim
 - **virt-colum.nvim** => Replace the colorcolumn wiht any char
 - **indent-blankline.nvim** => Show indentation vertical lines with differente colors
 - **bufferline.nvim** => Enhanced tab management
-- ~~**which-key.nvim** => Keybinding suggestions~~
+- **which-key.nvim** => Keybinding suggestions
 
 ### **File Navigation & Utilities**
 - **nvim-tree.lua** => File explorer
