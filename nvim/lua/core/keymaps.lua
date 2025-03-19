@@ -25,6 +25,10 @@ map("n", "<C-K>", "<C-W><C-K>", { desc = "Move to window above" })
 map("n", "<C-L>", "<C-W><C-L>", { desc = "Move to window right" })
 map("n", "<C-H>", "<C-W><C-H>", { desc = "Move to window left" })
 
+-- Tab navigation
+map("n", "<C-t>", ":tabnew", { desc = "Open a new tab" })
+map("n", "<C-Tab>", ":tabn<CR>", { desc = "Change to next tab" })
+
 -- Scrolling
 map("n", "<C-e>", "3<C-e>", { desc = "Scroll down 3 lines" })
 map("n", "<C-y>", "3<C-y>", { desc = "Scroll up 3 lines" })
@@ -41,24 +45,7 @@ map("n", "<leader>o", ":!" .. open_cmd .. "<CR>", { desc = "Open current directo
 -- Terminal command
 vim.cmd([[command! OpenTerminal split | terminal]])
 
--- Telescope mappings (loaded conditionally to avoid errors if telescope isn't loaded yet)
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "LazyLoad",
---   callback = function(event)
---     if event.data == "telescope.nvim" then
---       local builtin = require("telescope.builtin")
---       map("n", "<leader>ff", function()
---         builtin.find_files({
---           hidden = true,
---           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" }
---         })
---       end, { desc = "Find hidden files" })
---       map("n", "<leader>fg", builtin.live_grep, { desc = "Grep text" })
---       map("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
---     end
---   end
--- })
--- Define mappings that both load and use Telescope
+-- Telescope mappings lazy loaded
 map("n", "<leader>ff", function()
   require("telescope.builtin").find_files({
     hidden = true,
@@ -95,3 +82,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+-- Define commands for switching themes
+vim.api.nvim_create_user_command("DARK",
+  function()
+    vim.opt.background = 'dark'
+  end,
+  {})
+
+vim.api.nvim_create_user_command("LITE",
+  function()
+    vim.opt.background = 'light'
+  end,
+  {})
