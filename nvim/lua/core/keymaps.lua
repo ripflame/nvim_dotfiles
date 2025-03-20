@@ -95,3 +95,8 @@ vim.api.nvim_create_user_command("LITE",
     vim.opt.background = 'light'
   end,
   {})
+
+-- Create a command for Telescope to update its current working directory
+vim.api.nvim_create_user_command('TCD', function()
+  require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })
+end, {})
