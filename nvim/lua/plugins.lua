@@ -53,14 +53,6 @@ return {
           open_file = {
             quit_on_open = true, -- Close nvim-tree after opening a file
           },
-          change_dir = {
-            enable = true,
-            global = true,
-          },
-        },
-        update_focused_file = {
-          enable = true,
-          update_cwd = true,
         },
       }
     end,
