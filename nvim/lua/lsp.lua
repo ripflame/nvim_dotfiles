@@ -18,31 +18,6 @@ capabilities.textDocument.foldingRange = {
 }
 
 ---------------------------------------------------------------------------------------------------
--- LSP-based or indendt-base folding
----------------------------------------------------------------------------------------------------
-require("ufo").setup({
-  open_fold_hl_timeout = 0,
-  close_fold_kinds = {},
-  provider_selector = function(bufnr, filetype, _)
-    -- Force indent for known problematic filetypes
-    local force_indent = { html = true, xml = true }
-
-    if force_indent[filetype] then
-      return { "indent" }
-    end
-
-    local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-    for _, client in ipairs(clients) do
-      if client.server_capabilities and client.server_capabilities.foldingRangeProvider then
-        return { "lsp", "indent" } -- Use LSP if available
-      end
-    end
-
-    return { "indent" } -- Fallback to indent if no LSP folding
-  end
-})
-
----------------------------------------------------------------------------------------------------
 -- TypeScript/JavaScript LSP (ts_ls)
 ---------------------------------------------------------------------------------------------------
 lspconfig.ts_ls.setup({
@@ -122,34 +97,4 @@ require 'lspconfig'.emmet_ls.setup {
 ---------------------------------------------------------------------------------------------------
 require('lspconfig').marksman.setup({
   capabilities = capabilities,
-})
-
----------------------------------------------------------------------------------------------------
--- LSP Keybindings (Active only when LSP is attached)
----------------------------------------------------------------------------------------------------
--- Create an autocmd that triggers when an LSP client attaches to a buffer.
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions', -- Description for the autocmd
-  callback = function(event)
-    -- Define options for keybindings, scoped to the current buffer.
-    local opts = { buffer = event.buf }
-
-    -- Keybinding: Go to the definition of the symbol under the cursor.
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-
-    -- Keybinding: Go to the declaration of the symbol under the cursor.
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-
-    -- Keybinding: Go to the implementation of the symbol under the cursor.
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-
-    -- Keybinding: Go to the type definition of the symbol under the cursor.
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-
-    -- Keybinding: Show all references to the symbol under the cursor.
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-
-    -- Keybinding: Show signature help (e.g., function parameters) for the symbol under the cursor.
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-  end,
 })

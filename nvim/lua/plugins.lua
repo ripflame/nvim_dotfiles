@@ -60,6 +60,10 @@ return {
 
   -- LSP & Autocompletion
   {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",

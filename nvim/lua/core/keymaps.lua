@@ -27,7 +27,7 @@ map("n", "<C-L>", "<C-W><C-L>", { desc = "Move to window right" })
 map("n", "<C-H>", "<C-W><C-H>", { desc = "Move to window left" })
 
 -- Tab navigation
-map("n", "<C-t>", ":tabnew", { desc = "Open a new tab" })
+map("n", "<C-t>", ":tabnew<CR>", { desc = "Open a new tab" })
 map("n", "<C-Tab>", ":tabn<CR>", { desc = "Change to next tab" })
 
 -- Scrolling
