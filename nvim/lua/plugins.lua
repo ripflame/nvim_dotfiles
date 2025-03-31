@@ -237,7 +237,7 @@ return {
           return { "indent" }
         end
 
-        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
         for _, client in ipairs(clients) do
           if client.server_capabilities and client.server_capabilities.foldingRangeProvider then
             return { "lsp", "indent" } -- Use LSP if available
