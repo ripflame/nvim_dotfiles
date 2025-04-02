@@ -61,7 +61,15 @@ return {
   -- LSP & Autocompletion
   {
     "williamboman/mason.nvim",
+    lazy = false,
+    priority = 100,
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
   },
   {
     "neovim/nvim-lspconfig",

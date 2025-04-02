@@ -1,100 +1,107 @@
+-- Set up Mason and Mason-lspconfig before anything
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "+",
+            package_pending = ">",
+            package_uninstalled = "-"
+        }
+    }
+})
+
+-- Servers that must always be installed
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "ts_ls",
+    "html",
+    "cssls",
+    "jsonls",
+    "pyright",
+    "lua_ls",
+    "emmet_ls",
+    "marksman"
+
+  }
+})
+
 local lspconfig = require("lspconfig")
 local cmp_lsp = require("cmp_nvim_lsp")
 
--- Set up default capabilities for LSP servers, integrating cmp_nvim_lsp.
-local lspconfig_defaults = require('lspconfig').util.default_config
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
-
--- Define LSP capabilities with snippet support.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- Set up default capabilities with snippet support and folding, integrating cmp_nvim_lsp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
 
----------------------------------------------------------------------------------------------------
--- TypeScript/JavaScript LSP (ts_ls)
----------------------------------------------------------------------------------------------------
-lspconfig.ts_ls.setup({
-  capabilities = capabilities,
-  cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
-  on_attach = function(client, bufnr)
-    print("LSP ts_ls attached to buffer " .. bufnr)
-    client.server_capabilities.documentFormattingProvider = false
+-- Setup handlers for Mason-lspconfig
+require("mason-lspconfig").setup_handlers({
+  --Default handler
+  function(server_name)
+    lspconfig[server_name].setup({
+      capabilities = capabilities
+    })
   end,
-  init_options = {
-    preferences = {
-      includeCompletionsForModuleExports = true,
-      includeCompletionsWithInsertText = true,
-    },
-  },
-})
 
----------------------------------------------------------------------------------------------------
--- HTML LSP
----------------------------------------------------------------------------------------------------
-lspconfig.html.setup({
-  capabilities = capabilities,
-  cmd = { "html-languageserver", "--stdio" },
-})
-
----------------------------------------------------------------------------------------------------
--- CSS LSP
----------------------------------------------------------------------------------------------------
-lspconfig.cssls.setup({ capabilities = capabilities })
-
----------------------------------------------------------------------------------------------------
--- JSON LSP
----------------------------------------------------------------------------------------------------
-lspconfig.jsonls.setup({ capabilities = capabilities })
-
----------------------------------------------------------------------------------------------------
--- Python LSP (pyright)
----------------------------------------------------------------------------------------------------
-lspconfig.pyright.setup({ capabilities = capabilities })
-
----------------------------------------------------------------------------------------------------
--- Lua LSP (lua_ls)
----------------------------------------------------------------------------------------------------
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { "vim" }, -- Tells the LSP that `vim` is a valid global.
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.stdpath("config") .. "/lua"] = true,
+  -- TypeScript/JavaScript LSP (override with your custom settings)
+  ["ts_ls"] = function()
+    lspconfig.ts_ls.setup({
+      capabilities = capabilities,
+      -- cmd = { "typescript-language-server", "--stdio" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
+      on_attach = function(client, bufnr)
+        -- print("LSP ts_ls attached to buffer " .. bufnr)
+        -- client.server_capabilities.documentFormattingProvider = false
+      end,
+      init_options = {
+        preferences = {
+          includeCompletionsForModuleExports = true,
+          includeCompletionsWithInsertText = true,
         },
       },
-    },
-  },
-})
+    })
+  end,
 
----------------------------------------------------------------------------------------------------
--- Emmet LSP (for HTML and CSS)
----------------------------------------------------------------------------------------------------
-require 'lspconfig'.emmet_ls.setup {
-  filetypes = { 'html', 'css', 'scss' },
-  init_options = {
-    showExpandedAbbreviation = "always",
-    showAbbreviationSuggestions = true,
-    syntaxProfiles = {},
-    variables = {},
-  }
-}
+  -- Lua LSP with your custom settings
+  ["lua_ls"] = function()
+    lspconfig.lua_ls.setup({
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" }, -- Tells the LSP that `vim` is a valid global.
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.stdpath("config") .. "/lua"] = true,
+            },
+          },
+        },
+      },
+    })
+  end,
 
----------------------------------------------------------------------------------------------------
--- Marksman LSP (For Markdown)
----------------------------------------------------------------------------------------------------
-require('lspconfig').marksman.setup({
-  capabilities = capabilities,
+  -- -- HTML LSP custom cmd
+  -- ["html"] = function()
+  --   lspconfig.html.setup({
+  --     capabilities = capabilities,
+  --     cmd = { "html-languageserver", "--stdio" },
+  --   })
+  -- end,
+
+  -- Emmet LSP with your custom settings
+  ["emmet_ls"] = function()
+    lspconfig.emmet_ls.setup({
+      capabilities = capabilities,
+      filetypes = { 'html', 'css', 'scss' },
+      init_options = {
+        showExpandedAbbreviation = "always",
+        showAbbreviationSuggestions = true,
+        syntaxProfiles = {},
+        variables = {},
+      }
+    })
+  end,
 })
