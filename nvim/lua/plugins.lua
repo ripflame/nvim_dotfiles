@@ -23,7 +23,7 @@ return {
       require("bufferline").setup({
         options = {
           mode = "tabs",
-          separator_style = "slant",
+          separator_style = "padded_slant",
           diagnostics = "nvim_lsp",
         }
       })
@@ -269,9 +269,9 @@ return {
     opts = {
       enable = true,
       max_lines = 4,
-      min_window_height = 5,
+      min_window_height = 1,
       mode = "cursor",
-      separator = "─"
+      separator = "─",
     }
   },
 
@@ -331,6 +331,23 @@ return {
         end,
         desc = "Buffer Local Keymaps (which-key)",
       },
+    },
+  },
+
+  {
+    "jiaoshijie/undotree",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require('undotree').setup({
+        window = {
+          auto_close = true,
+        },
+      })
+    end,
+    keys = {
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>", desc = "Toggle Undotree" },
     },
   }
 }
