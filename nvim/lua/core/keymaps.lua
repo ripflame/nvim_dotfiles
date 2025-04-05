@@ -65,8 +65,10 @@ map("x", "<leader>p", [["_dP]], { desc = "Paste without yanking selection" })
 map("n", "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
 map("v", "<leader>y", [["+y]], { desc = "Yank selection to system clipboard" })
 map("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
+map("n", "<leader>P", [["+p]], { desc = "Paste from system clipboard" })
 map("n", "<leader>d", [["_d]], { desc = "Delete without yanking" })
 map("v", "<leader>d", [["_d]], { desc = "Delete selection without yanking" })
+
 
 -- TELESCOPE
 -- Telescope mappings

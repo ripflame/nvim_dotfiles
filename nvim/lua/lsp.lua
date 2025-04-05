@@ -49,7 +49,7 @@ require("mason-lspconfig").setup_handlers({
     lspconfig.ts_ls.setup({
       capabilities = capabilities,
       -- cmd = { "typescript-language-server", "--stdio" },
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
       on_attach = function(client, bufnr)
         -- print("LSP ts_ls attached to buffer " .. bufnr)
         -- client.server_capabilities.documentFormattingProvider = false
@@ -83,13 +83,13 @@ require("mason-lspconfig").setup_handlers({
     })
   end,
 
-  -- -- HTML LSP custom cmd
-  -- ["html"] = function()
-  --   lspconfig.html.setup({
-  --     capabilities = capabilities,
-  --     cmd = { "html-languageserver", "--stdio" },
-  --   })
-  -- end,
+  -- HTML LSP custom cmd
+  ["html"] = function()
+    lspconfig.html.setup({
+      capabilities = capabilities,
+      cmd = { "html-languageserver", "--stdio" },
+    })
+  end,
 
   -- Emmet LSP with your custom settings
   ["emmet_ls"] = function()
