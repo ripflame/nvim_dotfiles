@@ -58,7 +58,7 @@ map("n", "<C-f>", "<cmd>silent !tmux new-window<CR>", { desc = "Open new tmux wi
 local open_cmd = vim.loop.os_uname().sysname == "Windows_NT" and "explorer ." or "open ."
 map("n", "<leader>o", ":!" .. open_cmd .. "<CR>", { desc = "Open current directory in file manager" })
 vim.cmd([[command! OpenTerminal split | terminal]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
 
 -- CLIPBOARD OPERATIONS
 -- Copy/paste with system clipboard
