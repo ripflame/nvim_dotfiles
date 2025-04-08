@@ -49,9 +49,6 @@ map("n", "//", ":nohlsearch<CR>", { desc = "Clear search highlight" })
 map("n", ";;", "A;<ESC>", { desc = "Append semicolon at end of line" })
 map("n", "<leader>t", ":%s/\\s\\+$//<CR>", { desc = "Trim trailing whitespace" })
 map("n", "<leader>cd", ":cd %:h<CR>", { desc = "Change CWD to current file's WD" })
-map("n", "<leader>ev", function()
-  vim.cmd("e " .. vim.fn.stdpath("config") .. "/init.lua")
-end, { desc = "Edit init.lua" })
 
 -- Terminal and external commands
 map("n", "<C-f>", "<cmd>silent !tmux new-window<CR>", { desc = "Open new tmux window" })
@@ -67,6 +64,7 @@ map("n", "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
 map("v", "<leader>y", [["+y]], { desc = "Yank selection to system clipboard" })
 map("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
 map("n", "<leader>P", [["+p]], { desc = "Paste from system clipboard" })
+map("v", "<leader>P", [["+p]], { desc = "Paste to selection from system clipboard" })
 map("n", "<leader>d", [["_d]], { desc = "Delete without yanking" })
 map("v", "<leader>d", [["_d]], { desc = "Delete selection without yanking" })
 
@@ -96,18 +94,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer-local mappings
     local opts = { buffer = event.buf }
 
-    map("n", "gd", vim.lsp.buf.definition, opts)
-    map("n", "gD", vim.lsp.buf.declaration, opts)
-    map("n", "gi", vim.lsp.buf.implementation, opts)
-    map("n", "go", vim.lsp.buf.type_definition, opts)
-    map("n", "gr", vim.lsp.buf.references, opts)
-    map("n", "gs", vim.lsp.buf.signature_help, opts)
-    map("n", "K", vim.lsp.buf.hover, opts)
-    map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    map("n", "<leader>F", function()
+    local function map_with_desc(mode, key, cmd, description)
+      local options = vim.tbl_extend("force", opts, { desc = description })
+      map(mode, key, cmd, options)
+    end
+
+    map_with_desc("n", "gd", vim.lsp.buf.definition, "Go to Definition")
+    map_with_desc("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
+    map_with_desc("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
+    map_with_desc("n", "go", vim.lsp.buf.type_definition, "Go to Type Definition")
+    map_with_desc("n", "gr", vim.lsp.buf.references, "Find References")
+    map_with_desc("n", "gs", vim.lsp.buf.signature_help, "Show Signature Help")
+    map_with_desc("n", "K", vim.lsp.buf.hover, "Show Hover Documentation")
+    map_with_desc("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+    map_with_desc("n", "<leader>ca", vim.lsp.buf.code_action, "Code Actions")
+    map_with_desc("n", "<leader>F", function()
       vim.lsp.buf.format { async = true }
-    end, opts)
+    end, "Format Document")
+    map_with_desc("n", "[d", vim.diagnostic.goto_prev, "Go to Previous Diagnostic")
+    map_with_desc("n", "]d", vim.diagnostic.goto_next, "Go to Next Diagnostic")
+    map_with_desc("n", "<leader>e", vim.diagnostic.open_float, "Show Diagnostic Message")
+    map_with_desc("n", "<leader>q", vim.diagnostic.setqflist, "Add Diagnostics to Location List")
   end,
 })
 

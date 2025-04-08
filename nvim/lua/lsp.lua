@@ -25,7 +25,6 @@ require("mason-lspconfig").setup({
 })
 
 local lspconfig = require("lspconfig")
-local cmp_lsp = require("cmp_nvim_lsp")
 
 -- Set up default capabilities with snippet support and folding, integrating cmp_nvim_lsp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -50,10 +49,6 @@ require("mason-lspconfig").setup_handlers({
       capabilities = capabilities,
       -- cmd = { "typescript-language-server", "--stdio" },
       filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-      on_attach = function(client, bufnr)
-        -- print("LSP ts_ls attached to buffer " .. bufnr)
-        -- client.server_capabilities.documentFormattingProvider = false
-      end,
       init_options = {
         preferences = {
           includeCompletionsForModuleExports = true,
