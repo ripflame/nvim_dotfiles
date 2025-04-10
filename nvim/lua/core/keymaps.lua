@@ -22,7 +22,6 @@ map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
 -- Tab navigation
 map("n", "<C-t>", ":tabnew<CR>", { desc = "Open a new tab" })
-map("n", "<C-Tab>", ":tabn<CR>", { desc = "Change to next tab" })
 
 -- Scrolling
 map("n", "<C-e>", "3<C-e>", { desc = "Scroll down 3 lines" })
