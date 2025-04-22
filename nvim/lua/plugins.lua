@@ -142,6 +142,14 @@ return {
     end
   },
 
+  {
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp",
+    config = function()
+      require("luasnip.loaders.from_snipmate").lazy_load()
+    end,
+  },
+
   -- Git Integration
   {
     "lewis6991/gitsigns.nvim",
