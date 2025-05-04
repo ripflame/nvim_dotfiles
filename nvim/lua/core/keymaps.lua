@@ -19,6 +19,10 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Half-page down and center" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half-page up and center" })
 map("n", "n", "nzzzv", { desc = "Next search result and center" })
 map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
+map("n", "<C-w>>", "<cmd>vertical resize +15<CR>", { desc = "Increase window width by 15" })
+map("n", "<C-w><", "<cmd>vertical resize -15<CR>", { desc = "Decrease window width by 15" })
+map("n", "<C-w>+", "<cmd>resize +10<CR>", { desc = "Increase window height by 10" })
+map("n", "<C-w>-", "<cmd>resize -10<CR>", { desc = "Decrease window height by 10" })
 
 -- Tab navigation
 map("n", "<C-t>", ":tabnew<CR>", { desc = "Open a new tab" })
@@ -137,6 +141,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map_with_desc("n", "]d", vim.diagnostic.goto_next, "Go to Next Diagnostic")
     map_with_desc("n", "<leader>e", vim.diagnostic.open_float, "Show Diagnostic Message")
     map_with_desc("n", "<leader>q", vim.diagnostic.setqflist, "Add Diagnostics to Location List")
+    map("n", "gp", function()
+      require("telescope.builtin").lsp_definitions({
+        jump_type = "never",
+        preview = { hide_on_edit = true }
+      })
+    end, { desc = "Peek definition on telescope" })
   end,
 })
 
