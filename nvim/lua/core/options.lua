@@ -95,11 +95,11 @@ if vim.g.neovide then
   local is_mac = vim.fn.has("macunix") == 1
 
   -- Set font list based on OS
-  local font = "SauceCodePro Nerd Font:h16" -- Default font
+  local font = "SauceCodePro Nerd Font:h17" -- Default font
   if is_windows then
-    font = "SauceCodePro Nerd Font:h14"     -- Smaller font on Windows
+    font = "SauceCodePro Nerd Font:h15"     -- Smaller font on Windows
   elseif is_mac then
-    font = "SauceCodePro Nerd Font:h16"     -- Larger font on macOS
+    font = "SauceCodePro Nerd Font:h17"     -- Larger font on macOS
   else
     font = "Monospace:h14"                  -- Generic fallback for Linux
   end
