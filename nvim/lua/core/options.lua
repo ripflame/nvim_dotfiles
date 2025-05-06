@@ -8,9 +8,19 @@ vim.api.nvim_create_autocmd({ "FocusGained", "FocusLost" }, {
   end
 })
 
+-- Snippets related settings
+vim.api.nvim_create_user_command("LuaSnipReload", function()
+    require("luasnip.loaders.from_snipmate").load()
+  end,
+  {})
+vim.api.nvim_create_user_command("LuaSnipEdit", function()
+    require("luasnip.loaders").edit_snippet_files()
+  end,
+  {})
+
 -- Syntax and file type-related settings
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "python", "lua", "javascript", "typescript" },
+  pattern = { "python", "lua", "javascript", "typescript", "html" },
   callback = function()
     vim.o.colorcolumn = "100"
   end
@@ -95,11 +105,11 @@ if vim.g.neovide then
   local is_mac = vim.fn.has("macunix") == 1
 
   -- Set font list based on OS
-  local font = "SauceCodePro Nerd Font:h17" -- Default font
+  local font = "SauceCodePro Nerd Font:h20" -- Default font
   if is_windows then
     font = "SauceCodePro Nerd Font:h15"     -- Smaller font on Windows
   elseif is_mac then
-    font = "SauceCodePro Nerd Font:h17"     -- Larger font on macOS
+    font = "SauceCodePro Nerd Font:h20"     -- Larger font on macOS
   else
     font = "Monospace:h14"                  -- Generic fallback for Linux
   end

@@ -55,7 +55,6 @@ map("n", "<leader>cd", ":cd %:h<CR>", { desc = "Change CWD to current file's WD"
 
 -- Snippets mappings
 local ls = require("luasnip")
-
 -- Jump forward through tabstops
 map({ "i", "s" }, "<Tab>", function()
   if ls.expand_or_jumpable() then
@@ -65,7 +64,6 @@ map({ "i", "s" }, "<Tab>", function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
   end
 end)
-
 -- Jump backward through tabstops
 map({ "i", "s" }, "<S-Tab>", function()
   if ls.jumpable(-1) then
