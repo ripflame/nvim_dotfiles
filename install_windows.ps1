@@ -26,62 +26,59 @@ function Test-CommandExists {
 
 # Install Scoop if missing
 if (-Not (Test-CommandExists scoop)) {
-    Write-Output "?? Scoop not found. Installing..."
+    Write-Output "🔄 Scoop not found. Installing..."
     try {
         Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
         # Add main and extras buckets
         scoop bucket add main
         scoop bucket add extras
         scoop bucket add nerd-fonts
+        scoop bucket add versions
     } catch {
         Write-Error "Failed to install Scoop. Error: $_"
         exit 1
     }
 } else {
-    Write-Output "? Scoop already installed"
+    Write-Output "✓ Scoop already installed"
 }
 
 # Install dependencies using Scoop
-Write-Output "?? Checking dependencies..."
-$packages = @("neovim", "git", "ripgrep", "fd", "nodejs-lts")
+Write-Output "🔄 Checking dependencies..."
+$packages = @("neovim", "git", "ripgrep", "fd", "nodejs-lts", "gcc", "fzf", "cmake", "make")
 
 foreach ($pkg in $packages) {
     if (-Not (scoop list $pkg -q)) {
         Write-Output "  Installing $pkg..."
         scoop install $pkg
     } else {
-        Write-Output "  ? $pkg is already installed"
-    }
-}
-
-# Install language servers via npm
-Write-Output "?? Installing language servers..."
-$lspServers = @("typescript-language-server", "pyright", "vscode-langservers-extracted")
-
-foreach ($server in $lspServers) {
-    if (-Not (Test-CommandExists $server)) {
-        Write-Output "  Installing $server..."
-        npm install -g $server
-    } else {
-        Write-Output "  ? $server already installed"
+        Write-Output "  ✓ $pkg is already installed"
     }
 }
 
 # Install Nerd Font
 if (-Not (scoop list SauceCodePro-NF -q)) {
-    Write-Output "?? Installing SauceCodePro Nerd Font..."
+    Write-Output "🔄 Installing SauceCodePro Nerd Font..."
     scoop install SauceCodePro-NF
+} else {
+    Write-Output "✓ SauceCodePro Nerd Font already installed"
+}
+
+# Create undodir for persistent undo history
+$UndoDir = "$env:LOCALAPPDATA\nvim-data\undodir"
+if (-Not (Test-Path $UndoDir)) {
+    Write-Output "🔄 Creating undodir for persistent undo history..."
+    New-Item -ItemType Directory -Path $UndoDir -Force | Out-Null
 }
 
 # Backup existing Neovim config if present
 if (Test-Path $ConfigPath) {
     if (-Not (Get-Item $ConfigPath).LinkType) {
-        Write-Output "?? Existing Neovim config found. Backing up..."
+        Write-Output "🔄 Existing Neovim config found. Backing up..."
         $backupName = "$ConfigPath.bak.$(Get-Date -Format 'yyyyMMddHHmmss')"
         Rename-Item -Path $ConfigPath -NewName $backupName -Force
         Write-Output "  Backup created at $backupName"
     } else {
-        Write-Output "?? Removing existing symlink..."
+        Write-Output "🔄 Removing existing symlink..."
         Remove-Item -Path $ConfigPath -Force
     }
 }
@@ -93,7 +90,7 @@ if (-Not (Test-Path $parentDir)) {
 }
 
 # Create symbolic link to the repo's nvim config
-Write-Output "?? Linking Neovim config..."
+Write-Output "🔄 Linking Neovim config..."
 try {
     New-Item -ItemType SymbolicLink -Path $ConfigPath -Target "$RepoDir\nvim" -Force
 } catch {
@@ -103,9 +100,10 @@ try {
 
 # Install lazy.nvim if not already installed
 if (-Not (Test-Path $LazyPath)) {
-    Write-Output "?? Installing lazy.nvim..."
+    Write-Output "🔄 Installing lazy.nvim..."
     git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git $LazyPath
 }
 
-Write-Output "? Neovim setup complete!"
-Write-Output "?? Launch Neovim by typing 'nvim' to automatically install plugins"
+Write-Output "✅ Neovim setup complete!"
+Write-Output "🚀 Launch Neovim by typing 'nvim' to automatically install plugins"
+Write-Output "NOTE: On first launch, Mason will automatically install LSP servers."
