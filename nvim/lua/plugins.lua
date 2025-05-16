@@ -43,10 +43,18 @@ return {
       })
     end
   },
-
-  -- Development Tools
-  { "folke/neodev.nvim", opts = {} },
-
+  -- LazyDev This is a plugin for loading Lua modules in Neovim
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
   -- File Navigation
   {
     "nvim-telescope/telescope.nvim",
@@ -74,25 +82,18 @@ return {
 
   -- LSP & Autocompletion
   {
-    "williamboman/mason.nvim",
-    lazy = false,
-    priority = 100,
+    "neovim/nvim-lspconfig",
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim"
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
     },
   },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "folke/neodev.nvim",
-    },
-  },
-
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -125,6 +126,7 @@ return {
           ['<C-q>'] = cmp.mapping.abort(),
         },
         sources = cmp.config.sources({
+          { name = "lazydev",                group_index = 0 },
           { name = "nvim_lsp" },
           { name = 'nvim_lsp_signature_help' },
           { name = "luasnip" },
@@ -138,6 +140,7 @@ return {
               luasnip = "",
               buffer = "",
               path = "",
+              lazydev = "󰒲",
             }
             vim_item.kind = string.format("%s %s", icons[entry.source.name] or "?", vim_item.kind)
             return vim_item
