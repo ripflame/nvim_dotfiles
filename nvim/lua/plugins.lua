@@ -3,6 +3,11 @@
 ---------------------------------------------------------------------------------------------------
 
 return {
+  -- Windsuf PLUGINS
+  {
+    'Exafunction/windsurf.vim',
+    event = 'BufEnter'
+  },
   -- UI Enhancements
   {
     'sainnhe/everforest',
