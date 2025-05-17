@@ -264,8 +264,10 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettier.with({
-            filetypes = { "javascript", "typescript", "html", "css", "json" },
-            extra_args = { "--print-width", "100" },
+            filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact",
+              "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown",
+              "markdown.mdx", "graphql", "handlebars", "svelte", "astro", "htmlangular" },
+            extra_args = { "--print-width", "80" },
           }),
         },
       })

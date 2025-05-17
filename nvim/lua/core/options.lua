@@ -22,7 +22,7 @@ vim.api.nvim_create_user_command("LuaSnipEdit", function()
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "python", "lua", "javascript", "typescript", "html" },
   callback = function()
-    vim.o.colorcolumn = "100"
+    vim.o.colorcolumn = "80"
   end
 })
 

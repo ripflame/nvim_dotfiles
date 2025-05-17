@@ -6,7 +6,7 @@ This repository contains my Neovim configuration, along with automated install s
 
 - **Fully Automated Installation**: Run a single script to set up Neovim with all dependencies.
 - **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management.
-- **Modern Development Environment**: 
+- **Modern Development Environment**:
   - LSP support with automatic server installation via Mason
   - Autocompletion with nvim-cmp
   - Syntax highlighting with Treesitter
@@ -32,6 +32,7 @@ This repository contains my Neovim configuration, along with automated install s
 ## Installation Instructions
 
 ### **1. Clone the Repository**
+
 ```sh
 # macOS
 git clone https://github.com/ripflame/nvim_dotfiles.git ~/.nvim-setup
@@ -43,19 +44,25 @@ cd "$env:USERPROFILE\nvim-setup"
 ```
 
 ### **2. Run the Install Script**
+
 #### **For macOS** (Zsh/Bash)
+
 ```sh
 ./install_mac.sh
 ```
+
 #### **For Windows** (Run PowerShell as Administrator)
+
 ```powershell
 ./install_windows.ps1
 ```
 
 ### **3. Start Neovim**
+
 ```sh
 nvim
 ```
+
 When you first start Neovim, the plugins will be automatically installed by lazy.nvim, and LSP servers will be installed by Mason.
 
 ---
@@ -63,6 +70,7 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 ## Plugin List & Features
 
 ### **Core Plugins**
+
 - **lazy.nvim** - Plugin manager
 - **mason.nvim** - LSP/linter/formatter package manager
 - **mason-lspconfig.nvim** - Mason integration with lspconfig
@@ -74,6 +82,7 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 - **bufferline.nvim** - Enhanced tab/buffer management
 
 ### **UI Enhancements**
+
 - **everforest** - Color theme with light/dark variants
 - **virt-column.nvim** - Custom color column with character display
 - **indent-blankline.nvim** - Show indentation with colored vertical lines
@@ -82,17 +91,20 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 - **nvim-tree.lua** - File explorer
 
 ### **Development Tools**
+
 - **null-ls.nvim** - Formatter and linter integration
 - **neodev.nvim** - Enhanced development support for Neovim Lua API
 - **luasnip** - Snippet engine
 - **nvim-treesitter** - Better syntax highlighting and code analysis
 
 ### **Git Integration**
+
 - **gitsigns.nvim** - Git change indicators in gutter
 - **vim-fugitive** - Git commands within Neovim
 - **diffview.nvim** - Enhanced diff viewing
 
 ### **Code Organization**
+
 - **nvim-ufo** - Improved code folding with LSP integration
 - **undotree** - Visual navigation of undo history
 - **Comment.nvim** - Easy code commenting
@@ -134,24 +146,32 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 ## Customization
 
 ### Adding Snippets
+
 Place your snippets in the `nvim/snippets` directory:
+
 - Already includes snippets for JavaScript and JSON
 - Uses SnipMate format
 
 ### Adjusting LSP Servers
+
 Edit `nvim/lua/lsp.lua` to customize:
+
 - Which LSP servers are automatically installed
 - Server-specific settings
 
 ### Changing Themes
+
 The default theme is Everforest:
+
 - Light/dark variants available
 - Automatic theme switching supported
 
 ---
 
 ## Updating the Configuration
+
 If you make changes to your Neovim setup, update your local version with:
+
 ```sh
 cd ~/.nvim-setup && git pull && ./install_mac.sh  # macOS
 cd "$env:USERPROFILE\nvim-setup" && git pull && ./install_windows.ps1  # Windows
@@ -160,6 +180,7 @@ cd "$env:USERPROFILE\nvim-setup" && git pull && ./install_windows.ps1  # Windows
 ---
 
 ## Notes
+
 - If you encounter issues, ensure you have the following installed:
   - Git
   - Neovim (0.8+)
