@@ -20,6 +20,5 @@ require("mason-lspconfig").setup({
     "lua_ls",
     "emmet_ls",
     "marksman"
-
   }
 })

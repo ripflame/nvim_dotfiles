@@ -135,8 +135,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map_with_desc("n", "<leader>F", function()
       vim.lsp.buf.format { async = true }
     end, "Format Document")
-    map_with_desc("n", "[d", vim.diagnostic.goto_prev, "Go to Previous Diagnostic")
-    map_with_desc("n", "]d", vim.diagnostic.goto_next, "Go to Next Diagnostic")
+    -- map_with_desc("n", "[d", vim.diagnostic.goto_prev, "Go to Previous Diagnostic")
+    -- map_with_desc("n", "]d", vim.diagnostic.goto_next, "Go to Next Diagnostic")
     map_with_desc("n", "<leader>e", vim.diagnostic.open_float, "Show Diagnostic Message")
     map_with_desc("n", "<leader>q", vim.diagnostic.setqflist, "Add Diagnostics to Location List")
     map("n", "gp", function()
