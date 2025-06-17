@@ -3,6 +3,7 @@
 ---------------------------------------------------------------------------------------------------
 
 return {
+  -- lazy.nvim
   {
     "toppair/peek.nvim",
     event = { "VeryLazy" },
@@ -72,24 +73,6 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "Telescope",
-  },
-
-  {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("nvim-tree").setup {
-        actions = {
-          open_file = {
-            quit_on_open = true, -- Close nvim-tree after opening a file
-          },
-        },
-      }
-    end,
   },
 
   -- LSP & Autocompletion
@@ -263,10 +246,11 @@ return {
       local null_ls = require("null-ls")
       null_ls.setup({
         sources = {
-          null_ls.builtins.formatting.prettier.with({
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.prettierd.with({
             filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact",
               "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown",
-              "markdown.mdx", "graphql", "handlebars", "svelte", "astro", "htmlangular" },
+              "markdown.mdx", "graphql", "handlebars", "svelte", "astro", "htmlangular", "txt" },
             extra_args = { "--print-width", "80" },
           }),
         },

@@ -18,21 +18,6 @@ vim.api.nvim_create_user_command("LuaSnipEdit", function()
   end,
   {})
 
--- Syntax and file type-related settings
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "python", "lua", "javascript", "typescript", "html" },
-  callback = function()
-    vim.o.colorcolumn = "80"
-  end
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "text" },
-  callback = function()
-    vim.o.colorcolumn = "80" -- Keep prose at readable lengths
-  end
-})
-
 local undodir = vim.fn.stdpath('data') .. '/undodir'
 
 -- Create undodir if it doesn't exist
@@ -55,6 +40,7 @@ vim.opt.cursorline = true     -- Highlight current line
 vim.opt.wrap = false          -- Disable line wrapping
 vim.opt.mouse = "a"           -- Enable mouse support in all modes
 vim.opt.scrolloff = 8         -- Scroll window 8 lines away
+vim.o.colorcolumn = "80"      -- Keep prose at readable lengths
 
 -- Indentation settings
 vim.opt.tabstop = 2        -- Width of a tab character
