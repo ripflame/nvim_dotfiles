@@ -52,7 +52,7 @@ vim.opt.smartindent = true -- Smart indentation
 vim.opt.incsearch = true  -- Show search matches as you type
 vim.opt.ignorecase = true -- Ignore case during search
 vim.opt.smartcase = true  -- Unless uppercase character is used
-vim.opt.hlsearch = true   -- Highlight all search matches
+vim.opt.hlsearch = false   -- Highlight all search matches
 
 -- System integration
 --vim.opt.clipboard = "unnamedplus" -- Use system clipboard
