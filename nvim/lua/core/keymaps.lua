@@ -21,7 +21,7 @@ map("n", "n", "nzzzv", { desc = "Next search result and center" })
 map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 map("n", "<C-w>>", "<cmd>vertical resize +15<CR>", { desc = "Increase window width by 15" })
 map("n", "<C-w><", "<cmd>vertical resize -15<CR>", { desc = "Decrease window width by 15" })
-map("n", "<C-w>+", "<cmd>resize +10<CR>", { desc = "Increase window height by 10" })
+map("n", "<C-w>=", "<cmd>resize +10<CR>", { desc = "Increase window height by 10" })
 map("n", "<C-w>-", "<cmd>resize -10<CR>", { desc = "Decrease window height by 10" })
 
 -- Tab navigation
@@ -76,7 +76,7 @@ end)
 
 -- Terminal and external commands
 map("n", "<C-f>", "<cmd>silent !tmux new-window<CR>", { desc = "Open new tmux window" })
-local open_cmd = vim.loop.os_uname().sysname == "Windows_NT" and "explorer ." or "open ."
+local open_cmd = vim.loop.os_uname().sysname == "Windows_NT" and "explorer.exe ." or "open ."
 map("n", "<leader>o", ":!" .. open_cmd .. "<CR>", { desc = "Open current directory in file manager" })
 vim.cmd([[command! OpenTerminal split | terminal]])
 map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
