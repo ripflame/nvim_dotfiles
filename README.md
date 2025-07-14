@@ -8,24 +8,30 @@ This repository contains my Neovim configuration, along with automated install s
 - **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management.
 - **Modern Development Environment**:
   - LSP support with automatic server installation via Mason
-  - Autocompletion with nvim-cmp
+  - Advanced autocompletion with nvim-cmp and LuaSnip
   - Syntax highlighting with Treesitter
   - Fuzzy finding with Telescope
-  - Git integration with Gitsigns and Fugitive
+  - Git integration with Gitsigns, Fugitive, and DiffView
 - **Code Organization**:
-  - Smart folding with UFO
-  - Indentation guides with multi-color support
-  - Context-aware code view
-  - Treesitter-based syntax highlighting
+  - Smart code folding with UFO and LSP integration
+  - Rainbow indentation guides with multi-color support
+  - Code context display with treesitter-context
+  - Interactive key binding help with which-key
 - **UI Enhancements**:
   - Everforest theme with light/dark mode support
   - Auto dark mode integration
   - Tabline with bufferline
-  - Status line with lualine
-  - File explorer with nvim-tree
+  - Enhanced status line with lualine
+  - File navigation with built-in netrw
+  - Visual column guides
+- **Development Tools**:
+  - Markdown preview with Peek
+  - Code formatting with null-ls (prettier, black)
+  - Visual undo history with undotree
+  - Auto-pairing brackets and comments
+  - Windsurf integration
 - **Custom Snippets**: Pre-configured snippets for JavaScript and JSON
 - **Cross-Platform**: Works on both macOS (with Homebrew) and Windows (using Scoop)
-- **Persistent History**: Undo history preserved between sessions
 
 ---
 
@@ -75,40 +81,41 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 - **mason.nvim** - LSP/linter/formatter package manager
 - **mason-lspconfig.nvim** - Mason integration with lspconfig
 - **nvim-lspconfig** - Language Server Protocol (LSP) configuration
-- **nvim-cmp** - Autocompletion engine
+- **nvim-cmp** - Autocompletion engine with multiple sources
 - **telescope.nvim** - Fuzzy finder and file navigation
-- **lualine.nvim** - Status line
+- **lualine.nvim** - Status line with auto theme detection
 - **auto-dark-mode.nvim** - Automatically switch between light and dark themes
-- **bufferline.nvim** - Enhanced tab/buffer management
+- **bufferline.nvim** - Enhanced tab/buffer management with diagnostics
 
 ### **UI Enhancements**
 
-- **everforest** - Color theme with light/dark variants
+- **everforest** - Color theme with light/dark variants and italic support
 - **virt-column.nvim** - Custom color column with character display
-- **indent-blankline.nvim** - Show indentation with colored vertical lines
+- **indent-blankline.nvim** - Rainbow indentation guides with multi-color support
 - **nvim-treesitter-context** - Show code context while scrolling
-- **which-key.nvim** - Interactive keybinding suggestions
-- **nvim-tree.lua** - File explorer
+- **which-key.nvim** - Interactive keybinding suggestions and help
 
 ### **Development Tools**
 
-- **null-ls.nvim** - Formatter and linter integration
-- **neodev.nvim** - Enhanced development support for Neovim Lua API
-- **luasnip** - Snippet engine
-- **nvim-treesitter** - Better syntax highlighting and code analysis
+- **peek.nvim** - Live markdown preview with Deno
+- **windsurf.vim** - Windsurf editor integration
+- **none-ls.nvim** - Formatter and linter integration (prettier, black)
+- **lazydev.nvim** - Enhanced Lua development for Neovim
+- **luasnip** - Advanced snippet engine with SnipMate format support
+- **nvim-treesitter** - Advanced syntax highlighting with incremental selection
 
 ### **Git Integration**
 
 - **gitsigns.nvim** - Git change indicators in gutter
-- **vim-fugitive** - Git commands within Neovim
-- **diffview.nvim** - Enhanced diff viewing
+- **vim-fugitive** - Comprehensive Git commands within Neovim
+- **diffview.nvim** - Enhanced diff viewing and merge conflict resolution
 
 ### **Code Organization**
 
-- **nvim-ufo** - Improved code folding with LSP integration
-- **undotree** - Visual navigation of undo history
-- **Comment.nvim** - Easy code commenting
-- **nvim-autopairs** - Auto-close brackets and quotes
+- **nvim-ufo** - Advanced code folding with LSP and indent providers
+- **undotree** - Visual navigation of undo history with auto-close
+- **Comment.nvim** - Easy code commenting with context awareness
+- **nvim-autopairs** - Intelligent auto-close brackets and quotes
 
 ---
 
@@ -116,30 +123,42 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 
 - **Leader Key**: `,` (comma)
 - **File Navigation**:
-  - `,ff` - Find files (Telescope)
-  - `,fg` - Live grep (Telescope)
-  - `,fb` - Find open buffers
-  - `,s` - Toggle file explorer
+  - `,ff` - Find files including hidden (Telescope with ripgrep)
+  - `,fg` - Live grep search (Telescope)
+  - `,fb` - Find open buffers (Telescope)
+  - `,s` - Toggle file explorer (netrw)
 - **Window Navigation**:
   - `Ctrl+h/j/k/l` - Move between windows
-  - `Ctrl+w+</>/+/-` - Resize windows
+  - `Ctrl+w+></+/-` - Resize windows by 15/10 units
+  - `Ctrl+t` - Open new tab
+  - `Ctrl+d/u` - Half-page scroll with auto-center
 - **Code Editing**:
-  - `,F` - Format document (LSP)
+  - `,F` - Format document (LSP async)
   - `,rn` - Rename symbol (LSP)
+  - `,ca` - Code actions (LSP)
   - `gd` - Go to definition
+  - `gp` - Peek definition in Telescope
   - `K` - Show hover documentation
-  - `[d/]d` - Navigate through diagnostics
+  - `,e` - Show diagnostic float
   - `Tab/Shift+Tab` - Navigate through snippets
+  - `J/K` (visual) - Move selection up/down
+- **Completion**:
+  - `Ctrl+e` - Toggle completion menu
+  - `Ctrl+j/k` - Navigate completion items
+  - `Enter` - Confirm selection
 - **Git**:
   - Access git commands via `:Git` (fugitive)
+  - Git signs in gutter (gitsigns)
+  - `:DiffviewOpen` - Enhanced diff view
 - **Theme Control**:
   - `:DARK` - Switch to dark theme
   - `:LITE` - Switch to light theme
 - **Other Utilities**:
-  - `,u` - Toggle undotree
-  - `,y` - Yank to system clipboard
-  - `//` - Clear search highlights
-  - `,,` - Show which-key menu for current context
+  - `,u` - Toggle undotree with auto-close
+  - `,y/Y/P` - System clipboard operations
+  - `,d` - Delete without yanking
+  - `,?` - Show buffer local keymaps (which-key)
+  - `:PeekOpen/PeekClose` - Markdown preview
 
 ---
 
@@ -150,21 +169,31 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 Place your snippets in the `nvim/snippets` directory:
 
 - Already includes snippets for JavaScript and JSON
-- Uses SnipMate format
+- Uses SnipMate format with lazy loading
+- Supports live reload with libuv file system events
 
 ### Adjusting LSP Servers
 
 Edit `nvim/lua/lsp.lua` to customize:
 
-- Which LSP servers are automatically installed
-- Server-specific settings
+- Which LSP servers are automatically installed via Mason
+- Server-specific settings and capabilities
+- LSP keybindings and handlers
 
 ### Changing Themes
 
-The default theme is Everforest:
+The default theme is Everforest with medium background:
 
-- Light/dark variants available
-- Automatic theme switching supported
+- Light/dark variants available with automatic switching
+- Auto dark mode integration with system preferences
+- Italic support enabled for enhanced readability
+
+### Treesitter Configuration
+
+Currently supports syntax highlighting for:
+- Markdown, JavaScript, TypeScript, Lua, Python, HTML, CSS
+- Incremental selection with custom keymaps
+- Context display and intelligent indentation
 
 ---
 
