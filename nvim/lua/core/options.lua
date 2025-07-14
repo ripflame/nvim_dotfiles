@@ -43,22 +43,10 @@ vim.o.foldlevel = 99      -- Keep everything open by default
 vim.o.foldlevelstart = 99 -- Prevents auto-collapsing on file open
 vim.o.foldcolumn = "1"    -- Show fold column
 
--- Neovide GUI settings
-if vim.g.neovide then
-  -- Detect OS
-  local is_windows = vim.fn.has("win32") == 1
-  local is_mac = vim.fn.has("macunix") == 1
-
-  -- Set font list based on OS
-  local font = "SauceCodePro Nerd Font:h20" -- Default font
-  if is_windows then
-    font = "SauceCodePro Nerd Font:h15"     -- Smaller font on Windows
-  elseif is_mac then
-    font = "SauceCodePro Nerd Font:h20"     -- Larger font on macOS
-  else
-    font = "Monospace:h14"                  -- Generic fallback for Linux
-  end
-
-  vim.o.guifont = font
-  vim.g.neovide_scale_factor = .90
-end
+-- Netrw configuration for left sidebar that closes on file selection
+vim.g.netrw_liststyle = 3        -- Tree view
+vim.g.netrw_banner = 0           -- Remove banner
+vim.g.netrw_browse_split = 4     -- Open files in previous window
+vim.g.netrw_winsize = 25         -- 25% of window
+vim.g.netrw_keepdir = 0          -- Keep current directory synced
+vim.g.netrw_fastbrowse = 0       -- Disable fast browsing
