@@ -54,35 +54,11 @@ vim.opt.ignorecase = true -- Ignore case during search
 vim.opt.smartcase = true  -- Unless uppercase character is used
 vim.opt.hlsearch = false   -- Highlight all search matches
 
--- System integration
---vim.opt.clipboard = "unnamedplus" -- Use system clipboard
-
 -- Fold settings
-vim.o.foldmethod = "expr" -- Use expression for folding
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldenable = true   -- Enable folding
 vim.o.foldlevel = 99      -- Keep everything open by default
 vim.o.foldlevelstart = 99 -- Prevents auto-collapsing on file open
 vim.o.foldcolumn = "1"    -- Show fold column
-
--- Auto-save and restore folds (Prevents folds from resetting)
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = "*",
-  callback = function()
-    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-      vim.cmd("silent! mkview")
-    end
-  end
-})
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*",
-  callback = function()
-    if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-      vim.cmd("silent! loadview")
-    end
-  end
-})
 
 -- Neovide GUI settings
 if vim.g.neovide then
