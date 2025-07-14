@@ -1,23 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 -- GENERAL SETTINGS AND OPTIONS
 ---------------------------------------------------------------------------------------------------
--- Workaround for the range problem when hiding my terminal
-vim.api.nvim_create_autocmd({ "FocusGained", "FocusLost" }, {
-  callback = function()
-    -- Do nothing, effectively disabling focus events
-  end
-})
-
--- Snippets related settings
-vim.api.nvim_create_user_command("LuaSnipReload", function()
-    require("luasnip.loaders.from_snipmate").load()
-  end,
-  {})
-vim.api.nvim_create_user_command("LuaSnipEdit", function()
-    require("luasnip.loaders").edit_snippet_files()
-  end,
-  {})
-
 local undodir = vim.fn.stdpath('data') .. '/undodir'
 
 -- Create undodir if it doesn't exist

@@ -21,7 +21,7 @@ map("n", "n", "nzzzv", { desc = "Next search result and center" })
 map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 map("n", "<C-w>>", "<cmd>vertical resize +15<CR>", { desc = "Increase window width by 15" })
 map("n", "<C-w><", "<cmd>vertical resize -15<CR>", { desc = "Decrease window width by 15" })
-map("n", "<C-w>=", "<cmd>resize +10<CR>", { desc = "Increase window height by 10" })
+map("n", "<C-w>+", "<cmd>resize +10<CR>", { desc = "Increase window height by 10" })
 map("n", "<C-w>-", "<cmd>resize -10<CR>", { desc = "Decrease window height by 10" })
 
 -- Tab navigation
@@ -48,31 +48,9 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 -- General editor commands
 map("n", "<leader>cc", ":cclose<CR>", { desc = "Close quickfix window" })
 map("n", "<leader>s", ":Explore<CR>", { desc = "Open file explorer" })
-map("n", "//", ":nohlsearch<CR>", { desc = "Clear search highlight" })
 map("n", ";;", "A;<ESC>", { desc = "Append semicolon at end of line" })
 map("n", "<leader>t", ":%s/\\s\\+$//<CR>", { desc = "Trim trailing whitespace" })
 map("n", "<leader>cd", ":cd %:h<CR>", { desc = "Change CWD to current file's WD" })
-
--- Snippets mappings
-local ls = require("luasnip")
--- Jump forward through tabstops
-map({ "i", "s" }, "<Tab>", function()
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
-  else
-    -- If not in a snippet, behave like a normal tab
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
-  end
-end)
--- Jump backward through tabstops
-map({ "i", "s" }, "<S-Tab>", function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  else
-    -- If not in a snippet, behave like a normal shift-tab
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
-  end
-end)
 
 -- Terminal and external commands
 map("n", "<C-f>", "<cmd>silent !tmux new-window<CR>", { desc = "Open new tmux window" })
