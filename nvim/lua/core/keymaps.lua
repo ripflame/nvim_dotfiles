@@ -52,6 +52,27 @@ map("n", ";;", "A;<ESC>", { desc = "Append semicolon at end of line" })
 map("n", "<leader>t", ":%s/\\s\\+$//<CR>", { desc = "Trim trailing whitespace" })
 map("n", "<leader>cd", ":cd %:h<CR>", { desc = "Change CWD to current file's WD" })
 
+-- Snippets mappings
+local ls = require("luasnip")
+-- Jump forward through tabstops
+map({ "i", "s" }, "<Tab>", function()
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  else
+    -- If not in a snippet, behave like a normal tab
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+  end
+end)
+-- Jump backward through tabstops
+map({ "i", "s" }, "<S-Tab>", function()
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  else
+    -- If not in a snippet, behave like a normal shift-tab
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
+  end
+end)
+
 -- Terminal and external commands
 map("n", "<C-f>", "<cmd>silent !tmux new-window<CR>", { desc = "Open new tmux window" })
 local open_cmd = vim.loop.os_uname().sysname == "Windows_NT" and "explorer.exe ." or "open ."
