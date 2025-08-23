@@ -1,15 +1,37 @@
+-- Mason for LSP server management - Native LSP Integration
 return {
-  -- Mason LSP package manager
-  {
-    "mason-org/mason.nvim"
-  },
-  
-  -- Mason integration with lspconfig
-  {
-    "mason-org/mason-lspconfig.nvim",
-    dependencies = {
-      "mason-org/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-  },
+  "mason-org/mason.nvim",
+  config = function()
+    require("mason").setup({
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜", 
+          package_uninstalled = "✗"
+        }
+      }
+    })
+    
+    -- Auto-install LSP servers for native LSP configuration
+    local mason_registry = require("mason-registry")
+    
+    local servers = {
+      "typescript-language-server",  -- for ts_ls
+      "html-lsp",                    -- for html  
+      "css-lsp",                     -- for cssls
+      "json-lsp",                    -- for jsonls
+      "pyright",                     -- for pyright
+      "lua-language-server",         -- for lua_ls
+      "emmet-ls",                    -- for emmet_ls
+      "marksman",                    -- for marksman
+    }
+    
+    -- Install servers if not already installed
+    for _, server in ipairs(servers) do
+      local package = mason_registry.get_package(server)
+      if not package:is_installed() then
+        package:install()
+      end
+    end
+  end
 }
