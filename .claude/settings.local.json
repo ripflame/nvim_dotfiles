@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(mv:*)",
-      "Bash(nvim:*)"
+      "Bash(nvim:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:neovim.io)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
