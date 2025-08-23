@@ -32,7 +32,7 @@ This repository contains my modern Neovim configuration with native LSP support,
   - Auto-pairing brackets and comments
   - Windsurf integration
 - **Custom Snippets**: Pre-configured snippets for JavaScript and JSON
-- **Cross-Platform**: Works on both macOS (with Homebrew) and Windows (using Scoop)
+- **Cross-Platform**: Works on macOS (Homebrew), Windows (Scoop), and WSL2/Ubuntu (apt)
 
 ---
 
@@ -41,7 +41,7 @@ This repository contains my modern Neovim configuration with native LSP support,
 ### **1. Clone the Repository**
 
 ```sh
-# macOS
+# macOS / WSL2/Ubuntu
 git clone https://github.com/ripflame/nvim_dotfiles.git ~/.nvim-setup
 cd ~/.nvim-setup
 
@@ -64,6 +64,12 @@ cd "$env:USERPROFILE\nvim-setup"
 ./install_windows.ps1
 ```
 
+#### **For WSL2/Ubuntu** (Bash)
+
+```sh
+./install_wsl2.sh
+```
+
 ### **3. Start Neovim**
 
 ```sh
@@ -75,7 +81,7 @@ When you first start Neovim:
 2. **LSP servers** will be automatically installed by Mason (see `:Mason` UI)
 3. **Additional servers** can be installed via the installation guide
 
-**Note**: The install scripts pre-install common LSP servers, but Mason will handle any missing ones automatically.
+**Note**: Mason handles all LSP server installations automatically. The install scripts only install essential system dependencies and formatters.
 
 ---
 
@@ -212,7 +218,8 @@ Currently supports syntax highlighting for:
 If you make changes to your Neovim setup, update your local version with:
 
 ```sh
-cd ~/.nvim-setup && git pull && ./install_mac.sh  # macOS
+cd ~/.nvim-setup && git pull && ./install_mac.sh      # macOS
+cd ~/.nvim-setup && git pull && ./install_wsl2.sh     # WSL2/Ubuntu
 cd "$env:USERPROFILE\nvim-setup" && git pull && ./install_windows.ps1  # Windows
 ```
 
@@ -248,12 +255,12 @@ This configuration uses a modern three-tier architecture:
 ## Notes
 
 - **Neovim Version**: Requires Neovim 0.11+ for native LSP support (0.12+ recommended)
-- If you encounter issues, ensure you have the following installed:
-  - Git
-  - Neovim (0.11+)
-  - Compiler tools (gcc/clang)
-- Windows users should ensure they run PowerShell as Administrator when executing the script.
-- For issues with font icons, make sure the Nerd Font is correctly installed and configured in your terminal.
+- **Platform-Specific Notes**:
+  - **macOS**: Uses Homebrew for package management
+  - **Windows**: Uses Scoop, run PowerShell as Administrator
+  - **WSL2/Ubuntu**: Builds Neovim from source for latest version, configure Windows Terminal font
+- **Common Requirements**: Git, compiler tools (gcc/clang), Node.js, Python3
+- **Font Setup**: Install and configure 'SauceCodePro Nerd Font' in your terminal for proper icons
 
 ## LSP Server Management
 
@@ -275,6 +282,12 @@ See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding s
 - `:Mason` - Browse and install additional servers
 - `:MasonUpdate` - Update all installed servers
 - `:LspInfo` - View active LSP clients
+
+### WSL2-Specific Setup
+For WSL2 users, markdown preview requires Windows browser access:
+- **Chrome**: Ensure Chrome is installed on Windows (automatic detection)
+- **Edge**: Alternative browser if Chrome unavailable
+- **Preview Commands**: `:PeekOpen` and `:PeekClose` for markdown files
 
 ## Documentation
 
