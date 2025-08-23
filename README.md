@@ -1,13 +1,14 @@
 # Neovim Setup
 
-This repository contains my Neovim configuration, along with automated install scripts for both macOS and Windows.
+This repository contains my modern Neovim configuration with native LSP support, along with automated install scripts for both macOS and Windows.
 
 ## Features
 
 - **Fully Automated Installation**: Run a single script to set up Neovim with all dependencies.
 - **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management.
 - **Modern Development Environment**:
-  - LSP support with automatic server installation via Mason
+  - **Native LSP**: Uses Neovim's native `vim.lsp.config()` for optimal performance and compatibility
+  - **Mason Integration**: Automatic LSP server installation and management
   - Advanced autocompletion with nvim-cmp and LuaSnip
   - Syntax highlighting with Treesitter
   - Fuzzy finding with Telescope
@@ -69,7 +70,12 @@ cd "$env:USERPROFILE\nvim-setup"
 nvim
 ```
 
-When you first start Neovim, the plugins will be automatically installed by lazy.nvim, and LSP servers will be installed by Mason.
+When you first start Neovim:
+1. **Plugins** will be automatically installed by lazy.nvim
+2. **LSP servers** will be automatically installed by Mason (see `:Mason` UI)
+3. **Additional servers** can be installed via the installation guide
+
+**Note**: The install scripts pre-install common LSP servers, but Mason will handle any missing ones automatically.
 
 ---
 
@@ -78,10 +84,9 @@ When you first start Neovim, the plugins will be automatically installed by lazy
 ### **Core Plugins**
 
 - **lazy.nvim** - Plugin manager
-- **mason.nvim** - LSP/linter/formatter package manager
-- **mason-lspconfig.nvim** - Mason integration with lspconfig
-- **nvim-lspconfig** - Language Server Protocol (LSP) configuration
-- **nvim-cmp** - Autocompletion engine with multiple sources
+- **mason.nvim** - LSP server package manager
+- **Native LSP** - Neovim's built-in `vim.lsp.config()` and `vim.lsp.enable()`
+- **nvim-cmp** - Autocompletion engine with native LSP integration
 - **telescope.nvim** - Fuzzy finder and file navigation
 - **lualine.nvim** - Status line with auto theme detection
 - **auto-dark-mode.nvim** - Automatically switch between light and dark themes
@@ -172,13 +177,18 @@ Place your snippets in the `nvim/snippets` directory:
 - Uses SnipMate format with lazy loading
 - Supports live reload with libuv file system events
 
-### Adjusting LSP Servers
+### Adding LSP Servers
 
-Edit `nvim/lua/lsp.lua` to customize:
+Refer to `LSP_SERVER_INSTALLATION_GUIDE.md` for detailed instructions on adding new language servers.
 
-- Which LSP servers are automatically installed via Mason
-- Server-specific settings and capabilities
-- LSP keybindings and handlers
+To add a new server:
+1. Add server name to `nvim/lua/plugins/mason.lua` servers list
+2. Configure server in `nvim/init.lua` using `vim.lsp.config()`
+3. Add to `vim.lsp.enable()` list
+
+The configuration uses:
+- **Mason** for automatic server installation and updates
+- **Native LSP** for optimal server configuration and performance
 
 ### Changing Themes
 
@@ -208,13 +218,67 @@ cd "$env:USERPROFILE\nvim-setup" && git pull && ./install_windows.ps1  # Windows
 
 ---
 
+## Architecture
+
+This configuration uses a modern three-tier architecture:
+
+```
+┌─────────────────────────────────────────┐
+│  🔧 MASON: LSP Server Management       │
+│  • Auto-install/update LSP servers     │
+│  • Cross-platform server management    │
+│  • UI for server discovery             │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│  ⚡ NATIVE LSP: Core Configuration      │
+│  • vim.lsp.config() - Direct Neovim    │
+│  • No nvim-lspconfig dependency        │
+│  • Future-proof for Neovim 0.12+       │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│  🎨 LAZY.NVIM: Plugin Ecosystem        │
+│  • All non-LSP plugins                 │
+│  • UI, Git, completion, treesitter     │
+│  • Optimized plugin loading            │
+└─────────────────────────────────────────┘
+```
+
 ## Notes
 
+- **Neovim Version**: Requires Neovim 0.11+ for native LSP support (0.12+ recommended)
 - If you encounter issues, ensure you have the following installed:
   - Git
-  - Neovim (0.8+)
+  - Neovim (0.11+)
   - Compiler tools (gcc/clang)
 - Windows users should ensure they run PowerShell as Administrator when executing the script.
 - For issues with font icons, make sure the Nerd Font is correctly installed and configured in your terminal.
+
+## LSP Server Management
+
+### Automatic Installation
+Mason automatically installs and manages these LSP servers:
+- **TypeScript/JavaScript**: `typescript-language-server`
+- **HTML**: `html-lsp` (vscode-html-language-server)
+- **CSS**: `css-lsp` (vscode-css-language-server)  
+- **JSON**: `json-lsp` (vscode-json-language-server)
+- **Python**: `pyright`
+- **Lua**: `lua-language-server`
+- **Emmet**: `emmet-ls`
+- **Markdown**: `marksman`
+
+### Adding New Language Servers
+See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding support for additional languages.
+
+### Manual Management
+- `:Mason` - Browse and install additional servers
+- `:MasonUpdate` - Update all installed servers
+- `:LspInfo` - View active LSP clients
+
+## Documentation
+
+- **`LSP_SERVER_INSTALLATION_GUIDE.md`** - Complete guide for adding new language servers
+- See git history for migration details and architectural decisions
 
 Enjoy your enhanced Neovim experience!

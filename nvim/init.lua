@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
--- NEOVIM CONFIGURATION - HYBRID EDITION (Native LSP + Lazy.nvim)
--- Best of both worlds: Native LSP for 0.12+ compatibility, Lazy.nvim for plugins
+-- NEOVIM CONFIGURATION (Native LSP + Lazy.nvim)
+-- Native LSP for 0.12+ compatibility, Lazy.nvim for plugins
 ---------------------------------------------------------------------------------------------------
 
 -- Set the leader key to comma (before loading anything)
@@ -140,10 +140,10 @@ vim.opt.rtp:prepend(lazypath)
 ---------------------------------------------------------------------------------------------------
 
 -- Load plugins (excluding LSP-related ones)
-require("lazy").setup("plugins-hybrid")
+require("lazy").setup("plugins")
 
 -- Load keymaps (full version with all functionality)
 require("core.keymaps") -- Key mappings
 
 -- Success message
-print("Neovim hybrid configuration loaded successfully! (Native LSP + Lazy.nvim plugins)")
+print("Neovim configuration loaded successfully! (Native LSP + Lazy.nvim plugins)")
