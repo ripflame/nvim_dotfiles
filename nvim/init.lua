@@ -13,14 +13,25 @@ require("core.options") -- General settings
 -- NATIVE LSP CONFIGURATION (NEOVIM 0.11+) - REPLACES nvim-lspconfig
 ---------------------------------------------------------------------------------------------------
 
--- Configure LSP servers using native vim.lsp.config()
--- This replaces the old nvim-lspconfig and fixes the JS/TS table concat error
+-- Configure LSP servers using native vim.lsp.config() with Mason-installed servers
+-- This approach gives us the benefits of Mason (auto-install/update) with native LSP configuration
+-- that avoids nvim-lspconfig compatibility issues
 
--- Set up LSP capabilities for completion (will be enhanced by nvim-cmp later)
+-- Set up LSP capabilities for completion (enhanced by nvim-cmp)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- Note: nvim-cmp will enhance these capabilities when it loads
 
--- TypeScript/JavaScript
+-- Helper function to get Mason-installed server path
+local function mason_cmd(server_name)
+  local mason_registry = require("mason-registry")
+  if mason_registry.is_installed(server_name) then
+    local pkg = mason_registry.get_package(server_name)
+    return pkg:get_install_path()
+  end
+  return nil
+end
+
+-- Configure LSP servers immediately - Mason will install missing servers in background
+-- TypeScript/JavaScript - Use native LSP to avoid table concat bug
 vim.lsp.config('ts_ls', {
   cmd = { 'typescript-language-server', '--stdio' },
   filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
@@ -36,7 +47,7 @@ vim.lsp.config('html', {
   capabilities = capabilities,
 })
 
--- CSS
+-- CSS  
 vim.lsp.config('cssls', {
   cmd = { 'vscode-css-language-server', '--stdio' },
   filetypes = { 'css', 'scss', 'less' },
@@ -99,14 +110,7 @@ vim.lsp.config('marksman', {
 
 -- Enable all configured LSP servers
 vim.lsp.enable({
-  'ts_ls',
-  'html', 
-  'cssls',
-  'jsonls',
-  'pyright',
-  'lua_ls',
-  'emmet_ls',
-  'marksman'
+  'ts_ls', 'html', 'cssls', 'jsonls', 'pyright', 'lua_ls', 'emmet_ls', 'marksman'
 })
 
 ---------------------------------------------------------------------------------------------------
