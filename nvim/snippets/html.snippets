@@ -1,8 +1,10 @@
-snippet formcolumn "LAB2PDF - form column" b
-  <div class="form-column">
-    ${1}
-  </div>
-
-snippet forminput "LAB2PDF - form input" b
+snippet fi "LAB2PDF - form input" b
   <label class="label" for="${1:id}">${2:label}</label>
   <input class="input-number" type="number" step="any" id="$1" required />
+
+snippet tf "LAB2PDF - Table Template Field" b
+  <tr {{row_${1:id}}}>
+    <td>{{label_$1}}</td>
+    <td class="semi-bold">{{$1}}</td>
+    <td>{{minValue_$1}} a {{maxValue_$1}} {{unit_$1}}</td>
+  </tr>
