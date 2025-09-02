@@ -21,7 +21,7 @@ local servers = {
   "html-lsp",                    -- for html  
   "css-lsp",                     -- for cssls
   "json-lsp",                    -- for jsonls
-  "pyright",                     -- for pyright
+  "python-lsp-server",           -- for pylsp
   "lua-language-server",         -- for lua_ls
   "emmet-ls",                    -- for emmet_ls
   "marksman",                    -- for marksman
@@ -37,11 +37,12 @@ local servers = {
 
 ```lua
 -- Your New Language Server
-vim.lsp.config('your_server_name', {
-  cmd = { 'your-server-executable', '--stdio' },
+vim.lsp.config.your_server_name = {
+  cmd = { vim.fn.stdpath("data") .. "/mason/bin/your-server-executable", '--stdio' },
   filetypes = { 'your', 'supported', 'filetypes' },
   root_markers = { 'package.json', '.git' },
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     -- Server-specific settings (optional)
     YourServer = {

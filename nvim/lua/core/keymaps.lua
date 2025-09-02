@@ -109,43 +109,8 @@ map("n", "<leader>fb", function()
   require("telescope.builtin").buffers()
 end, { desc = "Find buffers" })
 
--- LSP COMMANDS
--- LSP specific keymaps (these will be active when LSP attaches)
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    -- Buffer-local mappings
-    local opts = { buffer = event.buf }
-
-    local function map_with_desc(mode, key, cmd, description)
-      local options = vim.tbl_extend("force", opts, { desc = description })
-      map(mode, key, cmd, options)
-    end
-
-    map_with_desc("n", "gd", vim.lsp.buf.definition, "Go to Definition")
-    map_with_desc("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
-    map_with_desc("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
-    map_with_desc("n", "go", vim.lsp.buf.type_definition, "Go to Type Definition")
-    map_with_desc("n", "gr", vim.lsp.buf.references, "Find References")
-    map_with_desc("n", "gs", vim.lsp.buf.signature_help, "Show Signature Help")
-    map_with_desc("n", "K", vim.lsp.buf.hover, "Show Hover Documentation")
-    map_with_desc("n", "<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
-    map_with_desc("n", "<leader>ca", vim.lsp.buf.code_action, "Code Actions")
-    map_with_desc("n", "<leader>F", function()
-      vim.lsp.buf.format { async = true }
-    end, "Format Document")
-    -- map_with_desc("n", "[d", vim.diagnostic.goto_prev, "Go to Previous Diagnostic")
-    -- map_with_desc("n", "]d", vim.diagnostic.goto_next, "Go to Next Diagnostic")
-    map_with_desc("n", "<leader>e", vim.diagnostic.open_float, "Show Diagnostic Message")
-    map_with_desc("n", "<leader>q", vim.diagnostic.setqflist, "Add Diagnostics to Location List")
-    map("n", "gp", function()
-      require("telescope.builtin").lsp_definitions({
-        jump_type = "never",
-        preview = { hide_on_edit = true }
-      })
-    end, { desc = "Peek definition on telescope" })
-  end,
-})
+-- LSP keymaps are now handled by on_attach in init.lua
+-- Native 0.11 keymaps: K (hover), grn (rename), gra (code_action), grr (references), etc.
 
 -- THEME COMMANDS
 -- Theme switching commands

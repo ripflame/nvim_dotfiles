@@ -27,7 +27,7 @@ This repository contains my modern Neovim configuration with native LSP support,
   - Visual column guides
 - **Development Tools**:
   - Markdown preview with Peek
-  - Code formatting with null-ls (prettier, black)
+  - Code formatting with conform.nvim (prettier, black, stylua)
   - Visual undo history with undotree
   - Auto-pairing brackets and comments
   - Windsurf integration
@@ -110,7 +110,7 @@ When you first start Neovim:
 
 - **peek.nvim** - Live markdown preview with Deno
 - **windsurf.vim** - Windsurf editor integration
-- **none-ls.nvim** - Formatter and linter integration (prettier, black)
+- **conform.nvim** - Modern formatter integration (prettier, black, stylua)
 - **lazydev.nvim** - Enhanced Lua development for Neovim
 - **luasnip** - Advanced snippet engine with SnipMate format support
 - **nvim-treesitter** - Advanced syntax highlighting with incremental selection
@@ -144,13 +144,14 @@ When you first start Neovim:
   - `Ctrl+t` - Open new tab
   - `Ctrl+d/u` - Half-page scroll with auto-center
 - **Code Editing**:
-  - `,F` - Format document (LSP async)
+  - `,F` - Format document (conform.nvim with LSP fallback)
   - `,rn` - Rename symbol (LSP)
-  - `,ca` - Code actions (LSP)
+  - `,ca` - Code actions (LSP) 
   - `gd` - Go to definition
   - `gp` - Peek definition in Telescope
   - `K` - Show hover documentation
   - `,e` - Show diagnostic float
+  - `[d`/`]d` - Navigate diagnostics
   - `Tab/Shift+Tab` - Navigate through snippets
   - `J/K` (visual) - Move selection up/down
 - **Completion**:
@@ -270,7 +271,7 @@ Mason automatically installs and manages these LSP servers:
 - **HTML**: `html-lsp` (vscode-html-language-server)
 - **CSS**: `css-lsp` (vscode-css-language-server)  
 - **JSON**: `json-lsp` (vscode-json-language-server)
-- **Python**: `pyright`
+- **Python**: `python-lsp-server` (pylsp)
 - **Lua**: `lua-language-server`
 - **Emmet**: `emmet-ls`
 - **Markdown**: `marksman`
@@ -281,7 +282,7 @@ See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding s
 ### Manual Management
 - `:Mason` - Browse and install additional servers
 - `:MasonUpdate` - Update all installed servers
-- `:LspInfo` - View active LSP clients
+- Native LSP keymaps work automatically (K, gd, grn, gra, grr, etc.)
 
 ### WSL2-Specific Setup
 For WSL2 users, markdown preview requires Windows browser access:

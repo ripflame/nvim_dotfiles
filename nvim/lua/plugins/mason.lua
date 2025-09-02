@@ -20,10 +20,15 @@ return {
       "html-lsp",                    -- for html  
       "css-lsp",                     -- for cssls
       "json-lsp",                    -- for jsonls
-      "pyright",                     -- for pyright
+      "python-lsp-server",           -- for pylsp (replaces pyright)
       "lua-language-server",         -- for lua_ls
       "emmet-ls",                    -- for emmet_ls
       "marksman",                    -- for marksman
+      -- Formatters
+      "black",                       -- Python formatter
+      "prettierd",                   -- JS/TS/HTML/CSS formatter (primary)
+      "prettier",                    -- JS/TS/HTML/CSS formatter (fallback)
+      "stylua",                      -- Lua formatter
     }
     
     -- Install servers if not already installed
