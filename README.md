@@ -28,7 +28,7 @@ This repository contains my modern Neovim configuration with native LSP support,
 - **Development Tools**:
   - Markdown preview with Peek
   - Code formatting with conform.nvim (prettier, black, stylua)
-  - Visual undo history with undotree
+  - Visual undo history with undotree and auto-diff preview
   - Auto-pairing brackets and comments
   - Windsurf integration
 - **Custom Snippets**: Pre-configured snippets for JavaScript and JSON
@@ -124,7 +124,7 @@ When you first start Neovim:
 ### **Code Organization**
 
 - **nvim-ufo** - Advanced code folding with LSP and indent providers
-- **undotree** - Visual navigation of undo history with auto-close
+- **undotree** - Visual undo history with auto-diff panel (use `J`/`K` to navigate with diff updates)
 - **Comment.nvim** - Easy code commenting with context awareness
 - **nvim-autopairs** - Intelligent auto-close brackets and quotes
 
@@ -166,7 +166,7 @@ When you first start Neovim:
   - `:DARK` - Switch to dark theme
   - `:LITE` - Switch to light theme
 - **Other Utilities**:
-  - `,u` - Toggle undotree with auto-close
+  - `,u` - Toggle undotree with auto-diff panel
   - `,y/Y/P` - System clipboard operations
   - `,d` - Delete without yanking
   - `,?` - Show buffer local keymaps (which-key)
