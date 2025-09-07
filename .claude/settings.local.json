@@ -5,7 +5,9 @@
       "Bash(nvim:*)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:neovim.io)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "WebSearch",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

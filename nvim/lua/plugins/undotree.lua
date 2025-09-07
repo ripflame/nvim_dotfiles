@@ -1,16 +1,6 @@
 return {
-  "jiaoshijie/undotree",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  config = function()
-    require('undotree').setup({
-      window = {
-        auto_close = true,
-      },
-    })
-  end,
+  "mbbill/undotree",
   keys = {
-    { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>", desc = "Toggle Undotree" },
+    { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle Undotree" },
   },
 }
