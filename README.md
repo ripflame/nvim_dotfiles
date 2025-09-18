@@ -26,7 +26,7 @@ This repository contains my modern Neovim configuration with native LSP support,
   - File navigation with built-in netrw
   - Visual column guides
 - **Development Tools**:
-  - Markdown preview with Peek
+  - Markdown preview with render-markdown
   - Code formatting with conform.nvim (prettier, black, stylua)
   - Visual undo history with undotree and auto-diff preview
   - Auto-pairing brackets and comments
@@ -108,7 +108,7 @@ When you first start Neovim:
 
 ### **Development Tools**
 
-- **peek.nvim** - Live markdown preview with Deno
+- **render-markdown.nvim** - Live markdown preview in-buffer
 - **windsurf.vim** - Windsurf editor integration
 - **conform.nvim** - Modern formatter integration (prettier, black, stylua)
 - **lazydev.nvim** - Enhanced Lua development for Neovim
@@ -170,7 +170,6 @@ When you first start Neovim:
   - `,y/Y/P` - System clipboard operations
   - `,d` - Delete without yanking
   - `,?` - Show buffer local keymaps (which-key)
-  - `:PeekOpen/PeekClose` - Markdown preview
 
 ---
 
@@ -232,24 +231,24 @@ This configuration uses a modern three-tier architecture:
 
 ```
 ┌─────────────────────────────────────────┐
-│  🔧 MASON: LSP Server Management       │
-│  • Auto-install/update LSP servers     │
-│  • Cross-platform server management    │
-│  • UI for server discovery             │
+│  🔧 MASON: LSP Server Management        │
+│  • Auto-install/update LSP servers      │
+│  • Cross-platform server management     │
+│  • UI for server discovery              │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
 │  ⚡ NATIVE LSP: Core Configuration      │
-│  • vim.lsp.config() - Direct Neovim    │
-│  • No nvim-lspconfig dependency        │
-│  • Future-proof for Neovim 0.12+       │
+│  • vim.lsp.config() - Direct Neovim     │
+│  • No nvim-lspconfig dependency         │
+│  • Future-proof for Neovim 0.12+        │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
-│  🎨 LAZY.NVIM: Plugin Ecosystem        │
-│  • All non-LSP plugins                 │
-│  • UI, Git, completion, treesitter     │
-│  • Optimized plugin loading            │
+│  🎨 LAZY.NVIM: Plugin Ecosystem         │
+│  • All non-LSP plugins                  │
+│  • UI, Git, completion, treesitter      │
+│  • Optimized plugin loading             │
 └─────────────────────────────────────────┘
 ```
 
@@ -283,12 +282,6 @@ See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding s
 - `:Mason` - Browse and install additional servers
 - `:MasonUpdate` - Update all installed servers
 - Native LSP keymaps work automatically (K, gd, grn, gra, grr, etc.)
-
-### WSL2-Specific Setup
-For WSL2 users, markdown preview requires Windows browser access:
-- **Chrome**: Ensure Chrome is installed on Windows (automatic detection)
-- **Edge**: Alternative browser if Chrome unavailable
-- **Preview Commands**: `:PeekOpen` and `:PeekClose` for markdown files
 
 ## Documentation
 
