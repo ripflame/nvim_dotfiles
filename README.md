@@ -231,21 +231,21 @@ This configuration uses a modern three-tier architecture:
 
 ```
 ┌─────────────────────────────────────────┐
-│  🔧 MASON: LSP Server Management        │
+│  MASON: LSP Server Management           │
 │  • Auto-install/update LSP servers      │
 │  • Cross-platform server management     │
 │  • UI for server discovery              │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
-│  ⚡ NATIVE LSP: Core Configuration      │
+│  NATIVE LSP: Core Configuration         │
 │  • vim.lsp.config() - Direct Neovim     │
 │  • No nvim-lspconfig dependency         │
 │  • Future-proof for Neovim 0.12+        │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
-│  🎨 LAZY.NVIM: Plugin Ecosystem         │
+│  LAZY.NVIM: Plugin Ecosystem            │
 │  • All non-LSP plugins                  │
 │  • UI, Git, completion, treesitter      │
 │  • Optimized plugin loading             │
