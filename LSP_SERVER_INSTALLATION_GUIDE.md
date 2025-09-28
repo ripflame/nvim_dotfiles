@@ -2,9 +2,8 @@
 
 ## Overview
 
-This guide explains how to add new LSP servers to your native LSP + Mason configuration. The
-process involves two main steps: adding the server to Mason's auto-install list and configuring it
-with native LSP.
+This guide explains how to add new LSP servers to your native LSP + Mason configuration. The process involves two main
+steps: adding the server to Mason's auto-install list and configuring it with native LSP.
 
 ---
 
@@ -192,14 +191,14 @@ Browse available servers:
 
 ### 3. Common Patterns
 
-| Language   | Mason Name      | LSP Config Name | Executable           | Common Root Markers                  |
-| ---------- | --------------- | --------------- | -------------------- | ------------------------------------ |
-| **Go**     | `gopls`         | `gopls`         | `gopls`              | `go.mod`, `go.work`                  |
-| **Rust**   | `rust-analyzer` | `rust_analyzer` | `rust-analyzer`      | `Cargo.toml`                         |
-| **C/C++**  | `clangd`        | `clangd`        | `clangd`             | `compile_commands.json`, `.clangd`   |
-| **Java**   | `jdtls`         | `jdtls`         | `jdtls`              | `pom.xml`, `build.gradle`            |
-| **PHP**    | `intelephense`  | `intelephense`  | `intelephense`       | `composer.json`                      |
-| **Python** | `python-lsp-server` | `pylsp` | `pylsp` | `pyproject.toml`, `requirements.txt` |
+| Language   | Mason Name          | LSP Config Name | Executable      | Common Root Markers                  |
+| ---------- | ------------------- | --------------- | --------------- | ------------------------------------ |
+| **Go**     | `gopls`             | `gopls`         | `gopls`         | `go.mod`, `go.work`                  |
+| **Rust**   | `rust-analyzer`     | `rust_analyzer` | `rust-analyzer` | `Cargo.toml`                         |
+| **C/C++**  | `clangd`            | `clangd`        | `clangd`        | `compile_commands.json`, `.clangd`   |
+| **Java**   | `jdtls`             | `jdtls`         | `jdtls`         | `pom.xml`, `build.gradle`            |
+| **PHP**    | `intelephense`      | `intelephense`  | `intelephense`  | `composer.json`                      |
+| **Python** | `python-lsp-server` | `pylsp`         | `pylsp`         | `pyproject.toml`, `requirements.txt` |
 
 ---
 
