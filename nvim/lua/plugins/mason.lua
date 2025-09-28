@@ -26,8 +26,7 @@ return {
       "marksman",                    -- for marksman
       -- Formatters
       "black",                       -- Python formatter
-      "prettierd",                   -- JS/TS/HTML/CSS formatter (primary)
-      "prettier",                    -- JS/TS/HTML/CSS formatter (fallback)
+      "prettier",                    -- JS/TS/HTML/CSS formatter
       "stylua",                      -- Lua formatter
     }
     
