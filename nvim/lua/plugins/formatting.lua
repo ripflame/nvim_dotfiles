@@ -52,7 +52,7 @@ return {
         -- Use system prettier if prettierd fails
         prettier = {
           command = "prettier",
-          args = { "--stdin-filepath", "$FILENAME", "--print-width", "80" },
+          args = { "--stdin-filepath", "$FILENAME", "--print-width", "100" },
           stdin = true,
         },
       },

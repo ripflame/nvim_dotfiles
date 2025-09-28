@@ -23,7 +23,7 @@ vim.opt.cursorline = true     -- Highlight current line
 vim.opt.wrap = false          -- Disable line wrapping
 vim.opt.mouse = "a"           -- Enable mouse support in all modes
 vim.opt.scrolloff = 8         -- Scroll window 8 lines away
-vim.o.colorcolumn = "80"      -- Keep prose at readable lengths
+vim.o.colorcolumn = "100"      -- Keep prose at readable lengths
 
 -- Indentation settings
 vim.opt.tabstop = 2        -- Width of a tab character
