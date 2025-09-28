@@ -23,7 +23,7 @@ vim.opt.cursorline = true     -- Highlight current line
 vim.opt.wrap = false          -- Disable line wrapping
 vim.opt.mouse = "a"           -- Enable mouse support in all modes
 vim.opt.scrolloff = 8         -- Scroll window 8 lines away
-vim.o.colorcolumn = "100"      -- Keep prose at readable lengths
+vim.o.colorcolumn = "120"      -- Keep prose at readable lengths
 
 -- Indentation settings
 vim.opt.tabstop = 2        -- Width of a tab character
@@ -50,3 +50,11 @@ vim.g.netrw_browse_split = 4     -- Open files in previous window
 vim.g.netrw_winsize = 25         -- 25% of window
 vim.g.netrw_keepdir = 0          -- Keep current directory synced
 vim.g.netrw_fastbrowse = 0       -- Disable fast browsing
+
+-- Disable colorcolumn for prose and documentation file types
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text", "gitcommit", "help", "man", "rst", "asciidoc", "org" },
+  callback = function()
+    vim.opt_local.colorcolumn = ""
+  end,
+})
