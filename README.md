@@ -1,16 +1,14 @@
 # Neovim Setup
 
-This repository contains my modern Neovim configuration with native LSP support, along with
-automated install scripts for both macOS and Windows.
+This repository contains my modern Neovim configuration with native LSP support, along with automated install scripts
+for both macOS and Windows.
 
 ## Features
 
 - **Fully Automated Installation**: Run a single script to set up Neovim with all dependencies.
-- **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin
-  management.
+- **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management.
 - **Modern Development Environment**:
-  - **Native LSP**: Uses Neovim's native `vim.lsp.config()` for optimal performance and
-    compatibility
+  - **Native LSP**: Uses Neovim's native `vim.lsp.config()` for optimal performance and compatibility
   - **Mason Integration**: Automatic LSP server installation and management
   - Advanced autocompletion with nvim-cmp and LuaSnip
   - Syntax highlighting with Treesitter
@@ -85,8 +83,8 @@ When you first start Neovim:
 2. **LSP servers** will be automatically installed by Mason (see `:Mason` UI)
 3. **Additional servers** can be installed via the installation guide
 
-**Note**: Mason handles all LSP server installations automatically. The install scripts only install
-essential system dependencies and formatters.
+**Note**: Mason handles all LSP server installations automatically. The install scripts only install essential system
+dependencies and formatters.
 
 ---
 
@@ -129,8 +127,7 @@ essential system dependencies and formatters.
 ### **Code Organization**
 
 - **nvim-ufo** - Advanced code folding with LSP and indent providers
-- **undotree** - Visual undo history with auto-diff panel (use `J`/`K` to navigate with diff
-  updates)
+- **undotree** - Visual undo history with auto-diff panel (use `J`/`K` to navigate with diff updates)
 - **Comment.nvim** - Easy code commenting with context awareness
 - **nvim-autopairs** - Intelligent auto-close brackets and quotes
 
@@ -191,8 +188,7 @@ Place your snippets in the `nvim/snippets` directory:
 
 ### Adding LSP Servers
 
-Refer to `LSP_SERVER_INSTALLATION_GUIDE.md` for detailed instructions on adding new language
-servers.
+Refer to `LSP_SERVER_INSTALLATION_GUIDE.md` for detailed instructions on adding new language servers.
 
 To add a new server:
 
@@ -289,8 +285,7 @@ Mason automatically installs and manages these LSP servers:
 
 ### Adding New Language Servers
 
-See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding support for
-additional languages.
+See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding support for additional languages.
 
 ### Manual Management
 

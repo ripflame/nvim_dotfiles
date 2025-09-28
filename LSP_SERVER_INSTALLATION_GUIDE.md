@@ -33,9 +33,9 @@ local servers = {
 
 ### Step 2: Configure Server with Native LSP
 
-**File:** `/home/ripflame/.nvim-setup/nvim/init.lua`
+**File:** `nvim/lua/core/lsp.lua`
 
-1. Add server configuration after the existing ones (around line 110):
+1. Add server configuration after the existing ones (around line 160):
 
 ```lua
 -- Your New Language Server
@@ -60,7 +60,7 @@ vim.lsp.config.your_server_name = {
 ```lua
 -- Enable all configured LSP servers
 vim.lsp.enable({
-  'ts_ls', 'html', 'cssls', 'jsonls', 'pyright', 'lua_ls', 'emmet_ls', 'marksman', 'your_server_name'
+  'ts_ls', 'html', 'cssls', 'jsonls', 'pylsp', 'lua_ls', 'emmet_ls', 'marksman', 'your_server_name'
 })
 ```
 
@@ -76,7 +76,7 @@ vim.lsp.enable({
 -- In mason.lua servers array:
 "gopls",
 
--- In init.lua:
+-- In nvim/lua/core/lsp.lua:
 vim.lsp.config('gopls', {
   cmd = { 'gopls' },
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
@@ -101,7 +101,7 @@ vim.lsp.config('gopls', {
 -- In mason.lua servers array:
 "rust-analyzer",
 
--- In init.lua:
+-- In nvim/lua/core/lsp.lua:
 vim.lsp.config('rust_analyzer', {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
@@ -128,7 +128,7 @@ vim.lsp.config('rust_analyzer', {
 -- In mason.lua servers array:
 "clangd",
 
--- In init.lua:
+-- In nvim/lua/core/lsp.lua:
 vim.lsp.config('clangd', {
   cmd = { 'clangd', '--background-index' },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
@@ -145,7 +145,7 @@ vim.lsp.config('clangd', {
 -- In mason.lua servers array:
 "jdtls",
 
--- In init.lua:
+-- In nvim/lua/core/lsp.lua:
 vim.lsp.config('jdtls', {
   cmd = { 'jdtls' },
   filetypes = { 'java' },
@@ -162,7 +162,7 @@ vim.lsp.config('jdtls', {
 -- In mason.lua servers array:
 "intelephense",
 
--- In init.lua:
+-- In nvim/lua/core/lsp.lua:
 vim.lsp.config('intelephense', {
   cmd = { 'intelephense', '--stdio' },
   filetypes = { 'php' },
@@ -199,7 +199,7 @@ Browse available servers:
 | **C/C++**  | `clangd`        | `clangd`        | `clangd`             | `compile_commands.json`, `.clangd`   |
 | **Java**   | `jdtls`         | `jdtls`         | `jdtls`              | `pom.xml`, `build.gradle`            |
 | **PHP**    | `intelephense`  | `intelephense`  | `intelephense`       | `composer.json`                      |
-| **Python** | `pyright`       | `pyright`       | `pyright-langserver` | `pyproject.toml`, `requirements.txt` |
+| **Python** | `python-lsp-server` | `pylsp` | `pylsp` | `pyproject.toml`, `requirements.txt` |
 
 ---
 
@@ -315,7 +315,7 @@ Use this template when adding any new LSP server:
 -- 1. Add to mason.lua servers array:
 "server-mason-name",
 
--- 2. Add to init.lua:
+-- 2. Add to nvim/lua/core/lsp.lua:
 vim.lsp.config('server_config_name', {
   cmd = { 'server-executable', '--stdio' },
   filetypes = { 'your', 'filetypes' },
@@ -329,7 +329,7 @@ vim.lsp.config('server_config_name', {
   }
 })
 
--- 3. Add to enable list in init.lua:
+-- 3. Add to enable list in nvim/lua/core/lsp.lua:
 vim.lsp.enable({
   -- ... existing servers ...,
   'server_config_name'
