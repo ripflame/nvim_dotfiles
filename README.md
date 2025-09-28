@@ -1,13 +1,16 @@
 # Neovim Setup
 
-This repository contains my modern Neovim configuration with native LSP support, along with automated install scripts for both macOS and Windows.
+This repository contains my modern Neovim configuration with native LSP support, along with
+automated install scripts for both macOS and Windows.
 
 ## Features
 
 - **Fully Automated Installation**: Run a single script to set up Neovim with all dependencies.
-- **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin management.
+- **Plugin Manager**: Uses [lazy.nvim](https://github.com/folke/lazy.nvim) for efficient plugin
+  management.
 - **Modern Development Environment**:
-  - **Native LSP**: Uses Neovim's native `vim.lsp.config()` for optimal performance and compatibility
+  - **Native LSP**: Uses Neovim's native `vim.lsp.config()` for optimal performance and
+    compatibility
   - **Mason Integration**: Automatic LSP server installation and management
   - Advanced autocompletion with nvim-cmp and LuaSnip
   - Syntax highlighting with Treesitter
@@ -77,11 +80,13 @@ nvim
 ```
 
 When you first start Neovim:
+
 1. **Plugins** will be automatically installed by lazy.nvim
 2. **LSP servers** will be automatically installed by Mason (see `:Mason` UI)
 3. **Additional servers** can be installed via the installation guide
 
-**Note**: Mason handles all LSP server installations automatically. The install scripts only install essential system dependencies and formatters.
+**Note**: Mason handles all LSP server installations automatically. The install scripts only install
+essential system dependencies and formatters.
 
 ---
 
@@ -124,7 +129,8 @@ When you first start Neovim:
 ### **Code Organization**
 
 - **nvim-ufo** - Advanced code folding with LSP and indent providers
-- **undotree** - Visual undo history with auto-diff panel (use `J`/`K` to navigate with diff updates)
+- **undotree** - Visual undo history with auto-diff panel (use `J`/`K` to navigate with diff
+  updates)
 - **Comment.nvim** - Easy code commenting with context awareness
 - **nvim-autopairs** - Intelligent auto-close brackets and quotes
 
@@ -146,7 +152,7 @@ When you first start Neovim:
 - **Code Editing**:
   - `,F` - Format document (conform.nvim with LSP fallback)
   - `,rn` - Rename symbol (LSP)
-  - `,ca` - Code actions (LSP) 
+  - `,ca` - Code actions (LSP)
   - `gd` - Go to definition
   - `gp` - Peek definition in Telescope
   - `K` - Show hover documentation
@@ -185,14 +191,17 @@ Place your snippets in the `nvim/snippets` directory:
 
 ### Adding LSP Servers
 
-Refer to `LSP_SERVER_INSTALLATION_GUIDE.md` for detailed instructions on adding new language servers.
+Refer to `LSP_SERVER_INSTALLATION_GUIDE.md` for detailed instructions on adding new language
+servers.
 
 To add a new server:
+
 1. Add server name to `nvim/lua/plugins/mason.lua` servers list
 2. Configure server in `nvim/init.lua` using `vim.lsp.config()`
 3. Add to `vim.lsp.enable()` list
 
 The configuration uses:
+
 - **Mason** for automatic server installation and updates
 - **Native LSP** for optimal server configuration and performance
 
@@ -207,6 +216,7 @@ The default theme is Everforest with medium background:
 ### Treesitter Configuration
 
 Currently supports syntax highlighting for:
+
 - Markdown, JavaScript, TypeScript, Lua, Python, HTML, CSS
 - Incremental selection with custom keymaps
 - Context display and intelligent indentation
@@ -265,10 +275,12 @@ This configuration uses a modern three-tier architecture:
 ## LSP Server Management
 
 ### Automatic Installation
+
 Mason automatically installs and manages these LSP servers:
+
 - **TypeScript/JavaScript**: `typescript-language-server`
 - **HTML**: `html-lsp` (vscode-html-language-server)
-- **CSS**: `css-lsp` (vscode-css-language-server)  
+- **CSS**: `css-lsp` (vscode-css-language-server)
 - **JSON**: `json-lsp` (vscode-json-language-server)
 - **Python**: `python-lsp-server` (pylsp)
 - **Lua**: `lua-language-server`
@@ -276,9 +288,12 @@ Mason automatically installs and manages these LSP servers:
 - **Markdown**: `marksman`
 
 ### Adding New Language Servers
-See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding support for additional languages.
+
+See **`LSP_SERVER_INSTALLATION_GUIDE.md`** for complete instructions on adding support for
+additional languages.
 
 ### Manual Management
+
 - `:Mason` - Browse and install additional servers
 - `:MasonUpdate` - Update all installed servers
 - Native LSP keymaps work automatically (K, gd, grn, gra, grr, etc.)

@@ -2,7 +2,9 @@
 
 ## Overview
 
-This guide explains how to add new LSP servers to your native LSP + Mason configuration. The process involves two main steps: adding the server to Mason's auto-install list and configuring it with native LSP.
+This guide explains how to add new LSP servers to your native LSP + Mason configuration. The
+process involves two main steps: adding the server to Mason's auto-install list and configuring it
+with native LSP.
 
 ---
 
@@ -18,7 +20,7 @@ This guide explains how to add new LSP servers to your native LSP + Mason config
 ```lua
 local servers = {
   "typescript-language-server",  -- for ts_ls
-  "html-lsp",                    -- for html  
+  "html-lsp",                    -- for html
   "css-lsp",                     -- for cssls
   "json-lsp",                    -- for jsonls
   "python-lsp-server",           -- for pylsp
@@ -68,8 +70,7 @@ vim.lsp.enable({
 
 ### Go (gopls)
 
-**Mason name:** `gopls`
-**LSP config name:** `gopls`
+**Mason name:** `gopls` **LSP config name:** `gopls`
 
 ```lua
 -- In mason.lua servers array:
@@ -94,8 +95,7 @@ vim.lsp.config('gopls', {
 
 ### Rust (rust-analyzer)
 
-**Mason name:** `rust-analyzer`
-**LSP config name:** `rust_analyzer`
+**Mason name:** `rust-analyzer` **LSP config name:** `rust_analyzer`
 
 ```lua
 -- In mason.lua servers array:
@@ -122,8 +122,7 @@ vim.lsp.config('rust_analyzer', {
 
 ### C/C++ (clangd)
 
-**Mason name:** `clangd`
-**LSP config name:** `clangd`
+**Mason name:** `clangd` **LSP config name:** `clangd`
 
 ```lua
 -- In mason.lua servers array:
@@ -140,8 +139,7 @@ vim.lsp.config('clangd', {
 
 ### Java (jdtls)
 
-**Mason name:** `jdtls`
-**LSP config name:** `jdtls`
+**Mason name:** `jdtls` **LSP config name:** `jdtls`
 
 ```lua
 -- In mason.lua servers array:
@@ -158,8 +156,7 @@ vim.lsp.config('jdtls', {
 
 ### PHP (intelephense)
 
-**Mason name:** `intelephense`
-**LSP config name:** `intelephense`
+**Mason name:** `intelephense` **LSP config name:** `intelephense`
 
 ```lua
 -- In mason.lua servers array:
@@ -179,12 +176,15 @@ vim.lsp.config('intelephense', {
 ## 🔍 Finding Server Information
 
 ### 1. Mason Registry
+
 Browse available servers:
+
 ```vim
 :Mason
 ```
 
 ### 2. LSP Server Documentation
+
 - **Server executable name**: Check the server's GitHub/documentation
 - **Filetypes**: Usually documented in server README
 - **Root markers**: Files that indicate project root (e.g., `package.json`, `.git`)
@@ -192,14 +192,14 @@ Browse available servers:
 
 ### 3. Common Patterns
 
-| Language | Mason Name | LSP Config Name | Executable | Common Root Markers |
-|----------|------------|-----------------|------------|-------------------|
-| **Go** | `gopls` | `gopls` | `gopls` | `go.mod`, `go.work` |
-| **Rust** | `rust-analyzer` | `rust_analyzer` | `rust-analyzer` | `Cargo.toml` |
-| **C/C++** | `clangd` | `clangd` | `clangd` | `compile_commands.json`, `.clangd` |
-| **Java** | `jdtls` | `jdtls` | `jdtls` | `pom.xml`, `build.gradle` |
-| **PHP** | `intelephense` | `intelephense` | `intelephense` | `composer.json` |
-| **Python** | `pyright` | `pyright` | `pyright-langserver` | `pyproject.toml`, `requirements.txt` |
+| Language   | Mason Name      | LSP Config Name | Executable           | Common Root Markers                  |
+| ---------- | --------------- | --------------- | -------------------- | ------------------------------------ |
+| **Go**     | `gopls`         | `gopls`         | `gopls`              | `go.mod`, `go.work`                  |
+| **Rust**   | `rust-analyzer` | `rust_analyzer` | `rust-analyzer`      | `Cargo.toml`                         |
+| **C/C++**  | `clangd`        | `clangd`        | `clangd`             | `compile_commands.json`, `.clangd`   |
+| **Java**   | `jdtls`         | `jdtls`         | `jdtls`              | `pom.xml`, `build.gradle`            |
+| **PHP**    | `intelephense`  | `intelephense`  | `intelephense`       | `composer.json`                      |
+| **Python** | `pyright`       | `pyright`       | `pyright-langserver` | `pyproject.toml`, `requirements.txt` |
 
 ---
 
@@ -214,9 +214,11 @@ Browse available servers:
 ### Method 2: Manual Installation
 
 1. **Install via Mason UI:**
+
    ```vim
    :Mason
    ```
+
    Navigate and press `i` to install
 
 2. **Add configuration** as shown above
@@ -228,20 +230,25 @@ Browse available servers:
 ## ✅ Verification Steps
 
 ### 1. Check Server Installation
+
 ```vim
 :Mason
 ```
+
 ✓ Server should show "installed" status
 
 ### 2. Check LSP Status
+
 ```vim
 :LspInfo
 ```
+
 ✓ Server should be listed as "attached" when in appropriate file
 
 ### 3. Test LSP Features
 
 Open a file of the target language and test:
+
 - **Hover documentation**: `K`
 - **Go to definition**: `gd`
 - **Find references**: `gr`
@@ -255,11 +262,13 @@ Open a file of the target language and test:
 ### Server Not Starting
 
 1. **Check Mason installation:**
+
    ```vim
    :Mason
    ```
 
 2. **Check LSP logs:**
+
    ```vim
    :LspLog
    ```
@@ -291,7 +300,9 @@ Open a file of the target language and test:
 ## 📚 Additional Resources
 
 - **Mason Registry**: [mason-registry](https://github.com/mason-org/mason-registry)
-- **LSP Server Configurations**: [nvim-lspconfig server configs](https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/server_configurations) (for reference only)
+- **LSP Server Configurations**:
+  [nvim-lspconfig server configs](https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/server_configurations)
+  (for reference only)
 - **Neovim LSP Documentation**: `:help vim.lsp`
 
 ---
@@ -327,5 +338,5 @@ vim.lsp.enable({
 
 ---
 
-*📝 This configuration uses native Neovim LSP (vim.lsp.config) with Mason for server management*  
-*🚀 No nvim-lspconfig dependency required - future-proof for Neovim 0.12+*
+_📝 This configuration uses native Neovim LSP (vim.lsp.config) with Mason for server management_  
+_🚀 No nvim-lspconfig dependency required - future-proof for Neovim 0.12+_
