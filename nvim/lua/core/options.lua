@@ -52,9 +52,9 @@ vim.g.netrw_keepdir = 0          -- Keep current directory synced
 vim.g.netrw_fastbrowse = 0       -- Disable fast browsing
 
 -- Disable colorcolumn for prose and documentation file types
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "text", "gitcommit", "help", "man", "rst", "asciidoc", "org" },
-  callback = function()
-    vim.opt_local.colorcolumn = ""
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "markdown", "text", "gitcommit", "help", "man", "rst", "asciidoc", "org" },
+--   callback = function()
+--     vim.opt_local.colorcolumn = ""
+--   end,
+-- })
