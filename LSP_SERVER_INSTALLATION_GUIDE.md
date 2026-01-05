@@ -11,7 +11,7 @@ steps: adding the server to Mason's auto-install list and configuring it with na
 
 ### Step 1: Add Server to Mason Auto-Install
 
-**File:** `/home/ripflame/.nvim-setup/nvim/lua/plugins/mason.lua`
+**File:** `nvim/lua/plugins/mason.lua`
 
 1. Open the Mason configuration file
 2. Add your server to the `servers` array:
@@ -34,7 +34,7 @@ local servers = {
 
 **File:** `nvim/lua/core/lsp.lua`
 
-1. Add server configuration after the existing ones (around line 160):
+1. Add server configuration after the existing ones:
 
 ```lua
 -- Your New Language Server
@@ -51,7 +51,7 @@ vim.lsp.config.your_server_name = {
       setting2 = "value2",
     }
   }
-})
+}
 ```
 
 2. Add your server to the enable list:
@@ -76,11 +76,12 @@ vim.lsp.enable({
 "gopls",
 
 -- In nvim/lua/core/lsp.lua:
-vim.lsp.config('gopls', {
+vim.lsp.config.gopls = {
   cmd = { 'gopls' },
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
   root_markers = { 'go.work', 'go.mod', '.git' },
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     gopls = {
       analyses = {
@@ -89,7 +90,7 @@ vim.lsp.config('gopls', {
       staticcheck = true,
     },
   }
-})
+}
 ```
 
 ### Rust (rust-analyzer)
@@ -101,11 +102,12 @@ vim.lsp.config('gopls', {
 "rust-analyzer",
 
 -- In nvim/lua/core/lsp.lua:
-vim.lsp.config('rust_analyzer', {
+vim.lsp.config.rust_analyzer = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
   root_markers = { 'Cargo.toml', 'rust-project.json' },
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       cargo = {
@@ -116,7 +118,7 @@ vim.lsp.config('rust_analyzer', {
       },
     }
   }
-})
+}
 ```
 
 ### C/C++ (clangd)
@@ -128,12 +130,13 @@ vim.lsp.config('rust_analyzer', {
 "clangd",
 
 -- In nvim/lua/core/lsp.lua:
-vim.lsp.config('clangd', {
+vim.lsp.config.clangd = {
   cmd = { 'clangd', '--background-index' },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
   root_markers = { '.clangd', '.clang-tidy', '.clang-format', 'compile_commands.json', 'compile_flags.txt', 'configure.ac', '.git' },
   capabilities = capabilities,
-})
+  on_attach = on_attach,
+}
 ```
 
 ### Java (jdtls)
@@ -145,12 +148,13 @@ vim.lsp.config('clangd', {
 "jdtls",
 
 -- In nvim/lua/core/lsp.lua:
-vim.lsp.config('jdtls', {
+vim.lsp.config.jdtls = {
   cmd = { 'jdtls' },
   filetypes = { 'java' },
   root_markers = { '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' },
   capabilities = capabilities,
-})
+  on_attach = on_attach,
+}
 ```
 
 ### PHP (intelephense)
@@ -162,12 +166,13 @@ vim.lsp.config('jdtls', {
 "intelephense",
 
 -- In nvim/lua/core/lsp.lua:
-vim.lsp.config('intelephense', {
+vim.lsp.config.intelephense = {
   cmd = { 'intelephense', '--stdio' },
   filetypes = { 'php' },
   root_markers = { 'composer.json', '.git' },
   capabilities = capabilities,
-})
+  on_attach = on_attach,
+}
 ```
 
 ---
@@ -315,18 +320,19 @@ Use this template when adding any new LSP server:
 "server-mason-name",
 
 -- 2. Add to nvim/lua/core/lsp.lua:
-vim.lsp.config('server_config_name', {
+vim.lsp.config.server_config_name = {
   cmd = { 'server-executable', '--stdio' },
   filetypes = { 'your', 'filetypes' },
   root_markers = { 'project.file', '.git' },
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     -- Optional server-specific settings
     ServerName = {
       setting = "value",
     }
   }
-})
+}
 
 -- 3. Add to enable list in nvim/lua/core/lsp.lua:
 vim.lsp.enable({
