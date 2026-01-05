@@ -37,10 +37,10 @@ for pkg in "${dependencies[@]}"; do
     fi
 done
 
-# Install font - necessary for icons
-echo "🔄 Installing SauceCodePro Nerd Font..."
-if ! fc-list | grep -i "SauceCodePro" &>/dev/null; then
-    brew tap homebrew/cask-fonts
+# Install Nerd Font for icons
+echo "🔄 Checking Nerd Font..."
+if ! brew list --cask font-sauce-code-pro-nerd-font &>/dev/null; then
+    echo "  Installing SauceCodePro Nerd Font..."
     brew install --cask font-sauce-code-pro-nerd-font
 else
     echo "  ✓ SauceCodePro Nerd Font already installed"
