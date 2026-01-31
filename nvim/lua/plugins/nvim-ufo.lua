@@ -18,11 +18,11 @@ return {
       local clients = vim.lsp.get_clients({ bufnr = bufnr })
       for _, client in ipairs(clients) do
         if client.server_capabilities and client.server_capabilities.foldingRangeProvider then
-          return { "lsp", "marker", "indent" } -- Use LSP if available, then marker, then indent
+          return { "lsp", "indent" }
         end
       end
 
-      return { "marker", "indent" } -- Fallback to marker and indent if no LSP folding
+      return { "indent" } -- Fallback to indent if no LSP folding
     end
   }
 }
