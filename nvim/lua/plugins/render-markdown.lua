@@ -11,11 +11,11 @@ return {
 					language_border = " ",
 					highlight = "RenderMarkdownCode",
 				},
-				render_modes = true,
+				render_modes = { "n", "c", "t" },
+				pipe_table = { cell = "trimmed" },
+				completions = { lsp = { enabled = true } },
+				-- anti_conceal = { enabled = false },
 			})
-
-			-- Set custom background color for code blocks (Everforest medium bg1)
-			vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "#343F44" })
 		end,
 	},
 }
