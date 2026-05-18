@@ -51,6 +51,7 @@ map("n", "<leader>s", ":Lexplore<CR>", { desc = "Open file explorer" })
 map("n", ";;", "A;<ESC>", { desc = "Append semicolon at end of line" })
 map("n", "<leader>t", ":%s/\\s\\+$//<CR>", { desc = "Trim trailing whitespace" })
 map("n", "<leader>cd", ":cd %:h<CR>", { desc = "Change CWD to current file's WD" })
+map("n", "<A-z>", function() vim.opt.wrap = not vim.o.wrap end, { desc = "Toggle line wrap" })
 
 -- Snippets mappings
 local ls = require("luasnip")
